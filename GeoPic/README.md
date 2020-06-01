@@ -6,3 +6,7 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 ## 2020.5.30 23：17
 ### modified by Daisy
 1. new project and add some supports
+
+## 2020.06.01 13：00
+### modified by Daisy
+1. Database table structure design
