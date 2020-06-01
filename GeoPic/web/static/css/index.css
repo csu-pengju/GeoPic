@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+body{
+    background-image: url('../images/homeBg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.container{
+    position: relative;
+    margin-top: 100px;
+}
+.register_box{
+    width: 60%;
+    text-align: center;
+    margin: 0 auto;
+    height: 600px;
+}
+.register_left{
+    width: 50%;
+    height: 600px;
+    float: left;
+    background-color: rgba(0,0,0,0.8);
+}
+.register_right{
+    width: 50%;
+    height: 600px;
+    float: right;
+    background-color: #fff;
+}
+.register_left_GeoPic{
+    margin-top: 100px;
+    color: white;
+    font-family: "Baskerville Old Face";
+    font-size: 50px;
+    font-style: italic;
+}
+.register_left_welcomeRegister{
+    float: left;
+    margin-left: 40px;
+    margin-top: 85px;
+    color: white;
+    font-size: 44px;
+    font-weight: bold;;
+}
+.register_left_photoManagement{
+    position: absolute;
+    margin-left: 42px;
+    margin-top: 145px;
+    color: white;
+    font-size: 20px;
+}
+.register-form{
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 140px;
+}
+.register-form input{
+    display: block;
+    margin-left: 15%;
+    margin-bottom: 20px;
+    height: 50px;
+    /*width: 300px;*/
+    width: 70%;
+    padding-left: 15px;
+    border-bottom: 1px solid lightgrey;
+    font-size: 20px;
+}
+form .btnSubmit{
+    width: 70%;
+    height: 50px;
+    margin-top: 40px;
+    border-style: none;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    border-radius: 10px;
+    letter-spacing: 40px;
+    padding-left: 40px;
+    font-size: 20px;
+}
+.btnSubmit:hover{
+    background-color: rgba(0,0,0,0.8);
+}
+.haveAccount-text{
+    color: rgba(0,0,0,0.6);
+}
+.login-text-box{
+    margin-top: 30px;
+}
+.login-text{
+    color: #0066cc;
+    font-weight: bold;
+    cursor: pointer;
+}
+.login-text:hover{
+    /*text-shadow:;*/
+
+}
+.login{
+    display: none;
+    position: absolute;
+    top: 200px;
+    left: 30%;
+    margin:0 auto;
+    background-color: white;
+    width: 360px;
+    height: 400px;
+    border-radius: 20px;
+    border:1.5px solid darkgray;
+}
+.login-title{
+    margin:0 auto;
+    text-align: center;
+    padding-top: 30px;
+}
+.login-title p{
+    font-weight: bold;
+    font-size: 26px;
+    letter-spacing: 20px;
+    padding-left: 20px;
+}
+.login-form{
+    margin-top: 0;
+    text-align: center;
+    padding-top: 40px;
+}
+.login-form input{
+    margin-left: 12%;
+    margin-bottom: 20px;
+    height: 50px;
+    width: 76%;
+    padding-left: 15px;
+    border-bottom: 1px solid lightgrey;
+    font-size: 20px;
+}
+.login-form img{
+    float: right;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    left: -40px;
+    top: 10px;
+}
+.btnSubmitLoginInfo-box{
+    margin-top: 30px;
+    margin-left: 8px;
+}
+.btnSubmitLoginInfo{
+    width: 76%;
+    height: 50px;
+    background-color: rgba(0,0,0,0.7);
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    letter-spacing: 40px;
+    padding-left: 40px;
+}
+.btnSubmitLoginInfo:hover{
+    background-color: rgba(0,0,0,0.8);
+}
+.find-password-box{
+    margin-top: 20px;
+}
+.forget-password{
+    color: rgba(0,0,0,0.6);
+}
+.find-password{
+    color: #0066cc;
+    cursor: pointer;
+}

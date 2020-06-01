@@ -406,7 +406,7 @@ MapControl.prototype._createAMap = function () {
     me._updateBackMapAMap();
 
     var i = 0;
-    var timer = setInterval(() => {
+    var timer = setInterval(()=> {
         me._clearBackMapControls();
         i++;
         if (i >= 15) {
@@ -425,5 +425,5 @@ MapControl.prototype._updateBackMapAMap = function () {
     me.bkMap.setZoomAndCenter(zoom, center);
 };
 MapControl.prototype.getMap = function () {
-  return
+  return;
 };

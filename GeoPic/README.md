@@ -10,3 +10,8 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 ## 2020.06.01 13：00
 ### modified by Daisy
 1. Database table structure design
+
+## 2020.06.01 23：00
+### modified by Daisy
+1. complish the registration and login.Now it can well work.
+2. Next work is PhotoWall.
