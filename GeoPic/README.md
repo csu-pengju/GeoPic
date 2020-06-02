@@ -15,3 +15,8 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 ### modified by Daisy
 1. complish the registration and login.Now it can well work.
 2. Next work is PhotoWall.
+
+## 2020.06.02 12：35
+### modified by Daisy
+1. photoWall ui design. 
+2. complete image-scroll and some component layout

@@ -2,11 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>PhotoWall</title>
+    <link rel="stylesheet" href="../css/photoWall.css">
+    <script type="text/javascript" src="../../support/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../js/photoWall.js"></script>
+    <script>
+        var photoWall = new PhotoWall();
+        // window.onload = photoWall.imageScroll();
+    </script>
+
 </head>
-<body>
+<body onload="photoWall.imageScroll()">
 <div>
-    <h1>这是照片墙首页</h1>
+    <div class="container">
+        <div class="imgae-scroll" align="center">
+            <img src="../images/lunbo1.jpg" style="display: block;width: 100%;">
+            <img src="../images/lunbo2.jpg"style="display: none;width: 100%;">
+            <img src="../images/lunbo3.jpg" style="display: none">
+            <img src="../images/lunbo4.jpg" style="display: none">
+            <img src="../images/lunbo5.jpg" style="display:none;">
+            <img src="../images/lunbo6.jpg" style="display:none;">
+            <div class="imgyuan">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="menu-box">
+            <span class="photoWall-menu"><a href="#">照片墙</a></span>
+            <span class="photoQuery-menu"><a href="#">照片查询</a></span>
+            <span class="photoMap-menu"><a href="#">照片地图</a></span>
+        </div>
+        <div class="content-box">
+            <div class="left-box">
+                <div class="splendid-text-box">
+                    <p>Splendid Moment</p>
+                </div>
+                <div class="function-menu-box">
+                    <div class="time-scale-choose-box">
+                        <input type="radio" value="年" class="year" name="timescale"><label>年</label>
+                        <input type="radio" value="月" class="month" name="timescale"><label>月</label>
+                    </div>
+                    <div class="upload-delete-box">
+                        <div class="upload-box">
+                            <label>Uploads</label>
+                            <img src="../images/upload.png">
+                        </div>
+                        <div class="delete-box">
+                            <img src="../images/delete.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-box">
+                <span class="timeline-text">Timeline</span>
+                <span class="timeline-2020-text">2020</span>
+            </div>
+
+    </div>
 </div>
 </body>
 </html>

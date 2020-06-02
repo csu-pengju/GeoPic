@@ -1,0 +1,139 @@
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+.container{
+    margin:0 auto;
+    text-align: center;
+}
+.imgae-scroll{
+    width: 100%;
+    height: 300px;
+}
+.imgae-scroll img{
+    width: 100%;
+    height: 300px;
+}
+.imgyuan{
+    width: 138px;
+    height: 20px;
+    border-radius: 12px;
+    background-color: red;
+    padding-left: 13px;
+    margin: 0 auto;
+    position: relative;
+    top: -40px;
+    background-color: rgba(1, 150, 0, 0.2);
+}
+.imgyuan span{
+    border:1px solid white;
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    margin-right: 9px;
+    margin-top: 4px;
+    display: block;
+    float: left;
+    background-color: white;
+}
+.menu-box{
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(0,0,0,0.8);
+}
+.menu-box span{
+    position: relative;
+    float: left;
+    left: -25%;
+    display: inline-block;
+    width: 200px;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 auto;
+    text-align: center;
+}
+.menu-box a{
+    color: white;
+    font-size: 26px;
+    text-decoration: none;
+}
+.splendid-text-box {
+    margin-top: 60px;
+}
+.splendid-text-box p{
+    font-size: 44px;
+    font-weight: bold;
+    font-family: "Baskerville Old Face";
+}
+.content-box{
+    width:100%;
+    height: 100%;
+    display: inline;
+    margin: 0 auto;
+}
+.left-box{
+    float: left;
+    width:70%;
+    border: 1px solid red;
+}
+.right-box{
+    float:right;
+    width:29.5%;
+    background-color: rgba(0,0,0,0.8);
+    border:1px solid green;
+    padding-top: 30px;
+}
+.right-box .timeline-text{
+    font-style: italic;
+    font-weight: bold;
+    font-family: "Bodoni MT";
+    color: white;
+    font-size: 56px;
+}
+.timeline-2020-text{
+    font-style: italic;
+    font-weight: bold;
+    font-family: "Bodoni MT";
+    color: #00ffff;
+    font-size: 56px;
+}
+.function-menu-box{
+    width:100%;
+    height: 100%;
+    display: inline;
+    /*margin-top: 40px;*/
+    margin:0 auto;
+}
+.time-scale-choose-box{
+    float:left;
+    margin-left: 10%;
+    margin-top: 30px;
+    font-size: 20px;
+}
+.time-scale-choose-box input{
+    margin-right: 5px;
+}
+.time-scale-choose-box label{
+    margin-right: 15px;
+}
+.upload-delete-box{
+    float:right;
+    margin-right: 10%;
+    margin-top: 27px;
+}
+.upload-box{
+    display: inline;
+}
+.upload-box label{
+    font-size: 28px;
+    font-weight: bold;
+    color:rgba(0,0,0,0.8);
+    border-bottom: 2px solid rgba(0,0,0,0.8);
+    padding-bottom: 2px;
+}
+.delete-box{
+    display: inline;
+}
