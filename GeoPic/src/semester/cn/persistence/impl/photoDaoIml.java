@@ -1,18 +1,21 @@
 package semester.cn.persistence.impl;
 
+import com.sun.org.apache.bcel.internal.generic.GOTO;
+import com.sun.org.apache.xerces.internal.xs.StringList;
 import semester.cn.domain.PhotoInfo;
 import semester.cn.persistence.PhotoDao;
 import semester.cn.persistence.UtilDao;
 
-import java.sql.Array;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.Timestamp;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class photoDaoIml  implements PhotoDao {
 //    private static String insertPhotoInfoSql = "insert into photoinfo " +
 //        " (takenplace,takentime,geo,photopath) " +
 //        " values (?,?,?,?)";
+    private static String getPhotoGPSAndPath = "select st_astext(geo) as geo,photopath " +
+        "from photoinfo";
 
     @Override
     public PhotoInfo getPhotoByPath(PhotoInfo photoInfo) {
@@ -57,4 +60,26 @@ public class photoDaoIml  implements PhotoDao {
 
         return  insertResult;
     }
+
+    @Override
+    public HashMap<String, String> getPhotoGPSAndPath() {
+        HashMap <String,String> photoGPSAndPath = new HashMap<String, String>();
+        Connection connection = null;
+        try {
+            connection = UtilDao.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(getPhotoGPSAndPath);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                String GPS = resultSet.getString(1);
+                String Path = resultSet.getString(2);
+
+                photoGPSAndPath.put(Path, GPS);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  photoGPSAndPath;
+    }
+
+
 }

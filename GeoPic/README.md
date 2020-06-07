@@ -35,3 +35,8 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 4. Data storage location: Data /photos is the original photo, and data/ Thumbs is the thumbnail.
 
 5. 下一步我先写照片地图了，先搭框架，写一下简单的哈哈哈哈，然后再去细化。
+
+## 2020，06.08 0：17
+### modified by Daisy
+1. load amap
+2. getPhotoGSPAndPath from GeoPic database

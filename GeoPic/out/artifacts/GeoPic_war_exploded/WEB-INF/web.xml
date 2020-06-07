@@ -35,4 +35,13 @@
         <servlet-name>StoreServlet</servlet-name>
         <url-pattern>/StoreServlet</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>getPhotoGPSServlet</servlet-name>
+        <servlet-class>semester.cn.servlets.getPhotoGPSServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getPhotoGPSServlet</servlet-name>
+        <url-pattern>/getPhotoGPSServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
