@@ -38,12 +38,12 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Python Script" />
-        <option value="Class" />
         <option value="HTML File" />
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -65,16 +65,17 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/web/WEB-INF/lib" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/static/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/WEB-INF/lib" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\WEB-INF\lib" />
       <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\static\images" />
       <recent name="D:\Projects\WebGIS\GeoPic\web\WEB-INF\lib" />
       <recent name="D:\Projects\WebGIS\GeoPic\web\support" />
@@ -183,7 +184,9 @@
       <updated>1590849450585</updated>
       <workItem from="1590849452949" duration="1578000" />
       <workItem from="1590851314440" duration="1234000" />
-      <workItem from="1590987832267" duration="38188000" />
+      <workItem from="1590987832267" duration="73461000" />
+      <workItem from="1591184501715" duration="15217000" />
+      <workItem from="1591493689004" duration="8259000" />
     </task>
     <servers />
   </component>

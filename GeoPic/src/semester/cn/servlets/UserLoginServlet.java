@@ -21,7 +21,7 @@ public class UserLoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         System.out.println(username);
-
+        System.out.println(password);
         userInfo = new UserInfo();
         userInfo.setUsername(username);
         userInfo.setPassword(password);

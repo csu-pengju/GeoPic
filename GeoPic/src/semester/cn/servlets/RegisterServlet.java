@@ -2,7 +2,6 @@ package semester.cn.servlets;
 
 import semester.cn.domain.UserInfo;
 import semester.cn.services.UserService;
-import sun.plugin.javascript.JSObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +31,6 @@ public class RegisterServlet extends HttpServlet {
         userService = new UserService();
         boolean loginResult = userService.register(userInfo);
         if(loginResult){
-//            JSONObject object = new JSObject();
             response.getWriter().print("200");
         }else{
             response.getWriter().println("000");

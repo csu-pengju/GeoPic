@@ -19,4 +19,20 @@
         <servlet-name>UserLoginServlet</servlet-name>
         <url-pattern>/UserLoginServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>getThumbsServlet</servlet-name>
+        <servlet-class>semester.cn.servlets.getThumbsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getThumbsServlet</servlet-name>
+        <url-pattern>/getThumbsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>StoreServlet</servlet-name>
+        <servlet-class>semester.cn.servlets.StoreServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StoreServlet</servlet-name>
+        <url-pattern>/StoreServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

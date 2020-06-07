@@ -120,20 +120,60 @@
     margin-right: 15px;
 }
 .upload-delete-box{
+    position: relative;
     float:right;
     margin-right: 10%;
     margin-top: 27px;
+    /*border:1px solid red;*/
+    /*width: 50%;*/
 }
 .upload-box{
     display: inline;
+    /*height: 80px;*/
+    /*border: 1px solid red;*/
 }
 .upload-box label{
+    padding-top: -4px;
     font-size: 28px;
     font-weight: bold;
     color:rgba(0,0,0,0.8);
     border-bottom: 2px solid rgba(0,0,0,0.8);
     padding-bottom: 2px;
+    /*border: 1px solid red;*/
+
+}
+#input_upload_driver{
+    opacity: 0;
+    position: absolute;
+    float: left;
+    width: 28px;
+    right: 38px;
+    border: 1px solid red;
+
+}
+.upload-delete-box img{
+    width: 32px;
+    height: 32px;
 }
 .delete-box{
+    display: inline;
+}
+.photoWallList-box{
+    width: 85%;
+    padding-top: 120px;
+    margin: 0 auto;
+    text-align: center;
+
+}
+.myImg{
+    width: 30px;
+    height: 30px;
+}
+.thumbs{
+    display: inline;
+    float: left;
+    border:1px solid blue;
+}
+#thumbs-ul{
     display: inline;
 }

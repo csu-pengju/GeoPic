@@ -8,10 +8,36 @@
     <link rel="stylesheet" href="../css/photoWall.css">
     <script type="text/javascript" src="../../support/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../js/photoWall.js"></script>
+    <script src="../../support/exif.js"></script>
     <script>
         var photoWall = new PhotoWall();
         // window.onload = photoWall.imageScroll();
+        // $(document).ready(function () {
+        //     li = document.createElement('li');
+        //     li.innerHTML='<img src="../images/lunbo6.jpg" />';
+        //     document.getElementById("thumbs-ul").appendChild(li);
+        // });
+        // function submits() {
+        //
+        // var formdata = new FormData();
+        // console.log("hh"+formdata)
+        //     $.ajax({
+        //         type:"POST",
+        //             url:"/StoreServlet",
+        //             dataType: 'json',
+        //             // data:photoData,
+        //             data: formdata,
+        //             contentType : false,
+        //             processData : false,  //必须false才会避开jQuery对 formdata 的默认处理
+        //             cache : false,
+        //             async:true,
+        //             success:function (res) {
+        //                 console.log("上传完成");
+        //             }
+        //     });
+        // }
     </script>
+
 
 </head>
 <body onload="photoWall.imageScroll()">
@@ -51,11 +77,23 @@
                     <div class="upload-delete-box">
                         <div class="upload-box">
                             <label>Uploads</label>
-                            <img src="../images/upload.png">
+                            <img src="../images/upload.jpg" >
+<!--                            <form id="form-input" onsubmit="submits()"  method="post" action="/StoreServlet" enctype="multipart/form-data">-->
+
+                                <input type="file" id="input_upload_driver" name="file" multiple="multiple" onchange=photoWall.uploadPhotos()>
+<!--                                <input type="submit"/>-->
+<!--                            </form>-->
+
                         </div>
                         <div class="delete-box">
-                            <img src="../images/delete.png">
+                            <img src="../images/delete.jpg">
                         </div>
+                   </div>
+                </div>
+                <div class="photoWallList-box">
+                    <div class="thumbs">
+                        <ul id="thumbs-ul">
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -64,6 +102,7 @@
                 <span class="timeline-2020-text">2020</span>
             </div>
 
+       </div>
     </div>
 </div>
 </body>
