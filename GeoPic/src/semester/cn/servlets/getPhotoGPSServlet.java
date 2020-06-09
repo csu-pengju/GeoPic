@@ -29,7 +29,6 @@ public class getPhotoGPSServlet extends HttpServlet {
         JSONObject jsonObject = new JSONObject();
         HashMap<String,String> photoGPSAndPath = new HashMap<String, String>();
         photoGPSAndPath = photoService.getPhotoGPSAndPath();
-
         if(photoGPSAndPath.isEmpty()){
             res.put("message","fail to get PhotoGSPAndPath");
         }else{

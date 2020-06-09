@@ -61,22 +61,22 @@
                 <div class="timeQuery-box">
                     <span>请选择查询时间&nbsp;:&nbsp;&nbsp;</span>
 <!--                    <span>From</span>-->
-                    <input  class="fromDate-input" type="date" value="2015-09-24"/>
+                    <input  class="fromDate-input" type="date" value="2015-09-24" name="startTime"/>
                     <span>—</span>
-                    <input  class="toDate-input" type="date" value="2015-09-24"/>
+                    <input  class="toDate-input" type="date" value="2015-09-24" name="endTime"/>
                 </div>
                 <div class="placeQuery-box">
                     <span>请输入查询地点&nbsp;:&nbsp;</span>
-                    <input type="text" class="place-input">
+                    <input type="text" class="place-input" name="address">
                 </div>
                 <div class="semanticQuery-box">
                     <div>
                         <span>请输入照片标签&nbsp;:&nbsp;</span>
-                        <input type="text" class="photoLabel-input" placeholder="多个照片标签请使用 / 隔开，如中南大学/食堂">
+                        <input type="text" class="photoLabel-input" placeholder="多个照片标签请使用 / 隔开，如中南大学/食堂" name="photoLabels">
                 </div>
                     <div>
                     <span>请输入人物标签&nbsp;:&nbsp;</span>
-                    <input type="text" class="faceLabel-input" placeholder="多个人物标签请使用 / 隔开，如彭举 /叶丁琦">
+                    <input type="text" class="faceLabel-input" placeholder="多个人物标签请使用 / 隔开，如彭举 /叶丁琦" name="faceLabels">
                 </div>
                 </div>
                 <div class="integratedQuery-box">
@@ -84,7 +84,8 @@
                 </div>
             </div>
             <div class="queryBtn-box">
-                <button onclick="photoQuery.showQueryRes('../images/lunbo6.jpg')">查询</button>
+<!--                onclick="photoQuery.showQueryRes('../images/lunbo6.jpg')"-->
+                <button onclick="photoQuery.getQueryPhotoPath()">查询</button>
             </div>
             </div>
 

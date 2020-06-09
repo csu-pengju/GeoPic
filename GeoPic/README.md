@@ -59,3 +59,12 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 
 1. Complete the front-end interface design of the photoQuery.
 2. The next step is to get the corresponding photos from the background according to the input conditions
+
+## 2020.06.09 22：00
+### modified by Daisy
+1. 完成照片的空间查询、时间查询
+2. 下一步完成查询结果展示
+
+1. Complete the spatial and temporal query of photos
+2. Complete the query result display next
+

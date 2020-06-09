@@ -7,6 +7,7 @@ import semester.cn.persistence.PhotoDao;
 import semester.cn.persistence.UtilDao;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,6 +80,50 @@ public class photoDaoIml  implements PhotoDao {
             e.printStackTrace();
         }
         return  photoGPSAndPath;
+    }
+
+    @Override
+    public ArrayList<String > getTimeQueryPhotoPath(String startTime, String endTime) {
+        Connection conn = null;
+        ArrayList<String> timeQueryRes = new ArrayList<>();
+        try{
+            String getTimeQueryPhotoPathSql = "select photopath from photoinfo " +
+                    " where takentime between '"+startTime+"' and '"+endTime+"'";
+            conn = UtilDao.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(getTimeQueryPhotoPathSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                String path = resultSet.getString(1);
+                timeQueryRes.add(path);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return timeQueryRes;
+    }
+
+    @Override
+    public ArrayList<String> getPlaceQueryPhotoPath(String geo, String address) {
+        Connection conn = null;
+        ArrayList<String> placeQueryRes = new ArrayList<>();
+        try{
+            String getPlaceQueryPhotoPathSql = "select photopath from photoinfo " +
+                    "  where ST_Distance(st_transform(st_setsrid(geo,4326),3857), st_transform(st_setsrid('"+
+                    geo+"'::geometry,4326),3857))<2000";
+
+            //select st_astext(geo) from photoinfo where ST_Distance(st_transform(st_setsrid(geo,4326),3857),
+            //	st_transform(st_setsrid('POINT(112.926388 28.164166)'::geometry,4326),3857)) <10
+            conn = UtilDao.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(getPlaceQueryPhotoPathSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                String path = resultSet.getString(1);
+                placeQueryRes.add(path);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return placeQueryRes;
     }
 
 

@@ -44,4 +44,14 @@
         <servlet-name>getPhotoGPSServlet</servlet-name>
         <url-pattern>/getPhotoGPSServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getQueryPhotoPathServlet</servlet-name>
+        <servlet-class>semester.cn.servlets.getQueryPhotoPathServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getQueryPhotoPathServlet</servlet-name>
+        <url-pattern>/getQueryPhotoPathServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>
