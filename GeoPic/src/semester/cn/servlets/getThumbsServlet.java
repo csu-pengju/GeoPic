@@ -57,15 +57,23 @@ public class getThumbsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
     }
-    private Timestamp toTimeStamp(String time) {
 
-        String[]date = time.split(":");
+    private Timestamp toTimeStamp(String time) {
         String dateString = "";
-        if(date.length==5){
-            dateString = date[0]+"-"+date[1]+"-"+date[2]+":"+date[3]+":"+date[4];
-        }else{
+        System.out.println("我看看"+time);
+        if(time.equals("no timeInfo")||time==null){
             dateString="00-00-00 00:00:00";
+        }else{
+            String[]date = time.split(":");
+
+            if(date.length==5){
+                dateString = date[0]+"-"+date[1]+"-"+date[2]+":"+date[3]+":"+date[4];
+            }else{
+                dateString="00-00-00 00:00:00";
+            }
         }
+
+
         System.out.println(dateString);
         Timestamp timestamp = Timestamp.valueOf(dateString);
         return timestamp;

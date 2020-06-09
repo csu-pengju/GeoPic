@@ -97,6 +97,7 @@
   <component name="RunManager">
     <configuration name="Tomcat 9.0.33" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.33" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080" />
+      <option name="COMMON_VM_ARGUMENTS" value="-Djava.library.path=WEB-INF\\lib\\java\\x64" />
       <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
       <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
       <deployment>
@@ -188,7 +189,7 @@
       <workItem from="1590987832267" duration="73461000" />
       <workItem from="1591184501715" duration="15217000" />
       <workItem from="1591493689004" duration="38219000" />
-      <workItem from="1591678226212" duration="23110000" />
+      <workItem from="1591678226212" duration="30841000" />
     </task>
     <servers />
   </component>

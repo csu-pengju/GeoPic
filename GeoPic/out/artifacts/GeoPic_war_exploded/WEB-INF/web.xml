@@ -54,4 +54,12 @@
         <url-pattern>/getQueryPhotoPathServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>getPhotoDataServlet</servlet-name>
+        <servlet-class>semester.cn.servlets.getPhotoDataServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getPhotoDataServlet</servlet-name>
+        <url-pattern>/getPhotoDataServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

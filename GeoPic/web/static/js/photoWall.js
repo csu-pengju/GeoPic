@@ -85,7 +85,7 @@ PhotoWall.prototype.autoPlay = function(){
 PhotoWall.prototype.uploadPhotos = function () {
     var me = this;
     var files = document.getElementById("input_upload_driver").files;
-
+     me.passPhotoData();
     for(var i = 0;i<files.length;i++){
         var file = files[i];
         me.getExifData(file,r);
@@ -114,15 +114,43 @@ PhotoWall.prototype.uploadPhotos = function () {
             //     }
             // });
         }
-
-
         reader.readAsDataURL(file);
         reader.onload=function (ev) {
             // console.log(this.result)
             me.CreateImage(this.result);
         }
     }
+};
 
+PhotoWall.prototype.passPhotoData = function(){
+    var me = this;
+    var files = document.getElementById("input_upload_driver").files;
+
+    for(var i = 0;i<files.length;i++){
+        var file = files[i];
+        var reader = new FileReader();
+        var r = new FileReader();
+        r.readAsDataURL(file);
+        r.onloadend= function (ev) {
+            photoData = this.result;
+            console.log(photoData);
+            var photoDat = photoData.replace("data:image/jpeg;base64",file.name);
+            $.ajax({
+                type:"POST",
+                url:"/getPhotoDataServlet",
+                data:photoDat,
+                contentType : false,
+                processData : false,  //必须false才会避开jQuery对 formdata 的默认处理
+                cache : false,
+                async:true,
+                success:function (res) {
+                    console.log("上传完成");
+                }
+            });
+        }
+        reader.readAsDataURL(file);
+
+    }
 };
 
 /**
@@ -132,7 +160,7 @@ PhotoWall.prototype.uploadPhotos = function () {
  * 获取上传图片的元数据
  */
 PhotoWall.prototype.getExifData= function(file,r){
-    // console.log(file);
+
     var me = this;
     var location = "";
     EXIF.getData(file,function () {
@@ -162,9 +190,7 @@ PhotoWall.prototype.getExifData= function(file,r){
                     },
                     async:true,
                     success:function (res) {
-                        // console.log("formatted_addresss"+res);
                         formatted_address = res.regeocode.formatted_address;
-                        // console.log(formatted_address);
                         PhotoWall.prototype.passPhotoInfo(file);
                     }
                 });
@@ -172,12 +198,6 @@ PhotoWall.prototype.getExifData= function(file,r){
                 formatted_address = "no placeInfo";
                 PhotoWall.prototype.passPhotoInfo(file);
             }
-            // var timer = setInterval(function () {
-            //     if(formatted_address!=""){
-            //         PhotoWall.prototype.passPhotoInfo(file);
-            //         clearInterval(timer);
-            //     }
-            // },100)
 
 
         }else {
@@ -205,7 +225,6 @@ PhotoWall.prototype.passPhotoInfo = function(file){
         data:{
                 "photoName":file.name,
                 "takenPlace":formatted_address,
-                // "photoData":photoData,
                 "geo":geo,
                 "takenTime":takenTime
 
