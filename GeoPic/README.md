@@ -36,7 +36,16 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 
 5. 下一步我先写照片地图了，先搭框架，写一下简单的哈哈哈哈，然后再去细化。
 
-## 2020，06.08 0：17
+## 2020.06.08 0：17
 ### modified by Daisy
 1. load amap
 2. getPhotoGSPAndPath from GeoPic database
+
+## 2020.06.09 10:24
+## modified by Daisy
+1. 完成照片的地图可视化。但是样式目前较为简单,后面会修改滴
+2. 下一步写照片检索，先搭框架，把基本内容写出来
+
+
+1. Complete the map visualization of photos.However, the style is relatively simple and will be modified later
+2. The next step is to write the photo retrieval, first frame, write out the basic content

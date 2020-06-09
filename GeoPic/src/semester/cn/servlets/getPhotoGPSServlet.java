@@ -42,10 +42,12 @@ public class getPhotoGPSServlet extends HttpServlet {
             Map.Entry entry = (Map.Entry) iterator.next();
             String Path = (String)entry.getKey();
             String GPS = (String)entry.getValue();
-            jsonObject.put("Path",Path);
-            jsonObject.put("GPS",GPS);
-            jsonArray.add(i++,jsonObject);
-
+            System.out.println(GPS+"ddd");
+            if(GPS!=null){
+                jsonObject.put("Path",Path);
+                jsonObject.put("GPS",GPS);
+                jsonArray.add(i++,jsonObject);
+            }
         }
         data.put("GPSAndPath",jsonArray);
         res.put("data",data);

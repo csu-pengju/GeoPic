@@ -10,21 +10,16 @@
     <link rel="stylesheet" href="../css/photoMap.css">
     <script type="text/javascript"  src="../js/photoWall.js" ></script>
     <script type="text/javascript"src="../js/photoMap.js"></script>
-    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=8b6b3261c4d70b409feaa273ada901f2"></script>
+<!--    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=8b6b3261c4d70b409feaa273ada901f2"></script>-->
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=8b6b3261c4d70b409feaa273ada901f2&plugin=Map3D,ElasticMarker"></script>
     <script>
         var photoMap = null;
         $(document).ready(function () {
-            photoMap = new PhotoWall({
-                div:"map",
+            photoMap = new PhotoMap({
                 zoom:5,
                 width:"100%",
                 height:"800px"
             });
-            // var map = new AMap.Map('map', {
-            //     zoom:11,//级别
-            //     center: [116.397428, 39.90923],//中心点坐标
-            //
-            // });
         });
 
 

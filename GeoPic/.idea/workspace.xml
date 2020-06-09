@@ -65,7 +65,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/web/WEB-INF/lib" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/WEB-INF/lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/static/data/photos" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -75,10 +75,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\static\data\photos" />
+      <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\data\photos" />
       <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\WEB-INF\lib" />
       <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\static\images" />
       <recent name="D:\Projects\WebGIS\GeoPic\web\WEB-INF\lib" />
-      <recent name="D:\Projects\WebGIS\GeoPic\web\support" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -186,7 +187,7 @@
       <workItem from="1590851314440" duration="1234000" />
       <workItem from="1590987832267" duration="73461000" />
       <workItem from="1591184501715" duration="15217000" />
-      <workItem from="1591493689004" duration="18594000" />
+      <workItem from="1591493689004" duration="32269000" />
     </task>
     <servers />
   </component>

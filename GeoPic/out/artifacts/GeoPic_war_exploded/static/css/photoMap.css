@@ -6,3 +6,16 @@
     width: 100%;
     height: 800px;
 }
+.amap-marker-label {
+    position: absolute;
+    z-index: 2;
+    /*border: 1px solid blue;*/
+    border-radius: 10px;
+    background-color: red;
+    white-space: nowrap;
+    color: white;
+    cursor: default;
+    padding: 3px;
+    font-size: 12px;
+    line-height: 14px;
+}

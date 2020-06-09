@@ -1,14 +1,32 @@
+/**
+ * 用于照片墙
+ * 目前已经实现照片信息的上传，照片信息的提取，照片信息（拍摄地点、时间、GPS、存储路径）存储到数据库
+ * 未解决的问题：
+ *      1. 将上传的照片本身的数据传给后台，总是有问题；
+ *      2. 未实现读取已经上传的照片，后面会写的，只要第一个问题解决了
+ *      3. 未实现关于照片中人脸信息的相关内容，后面再写
+ */
 
+//一些全局变量
 var index = 0;//每张图片的下标，
 var formatted_address ="";
 var takenTime = "";
 var geo="";
 var photoData = "";
+/**
+ *
+ * @param options
+ * @constructor
+ *
+ */
 PhotoWall = function (options) {
 
-}
+};
 
-    PhotoWall.prototype.imageScroll = function () {
+/**
+ * 图片轮播
+ */
+PhotoWall.prototype.imageScroll = function () {
     var me = this;
     var start = setInterval(me.autoPlay, 2000);//开始轮播，每秒换一张图
     $(".imgae-scroll").onmouseover = function () {
@@ -23,6 +41,9 @@ PhotoWall = function (options) {
     }
 };
 
+/**
+ * 改变图片时的操作
+ */
 PhotoWall.prototype.changeImg = function(){
     var me = this;
     var index = arguments[0];
@@ -36,7 +57,9 @@ PhotoWall.prototype.changeImg = function(){
     list1[index].style.backgroundColor="red";
 };
 
-//当移动到圆圈，则停滞对应的图片
+/**
+ * 当移动到圆圈，则停滞对应的图片
+ */
 PhotoWall.prototype.funny = function(lst,i){
     var me = this;
     lst[i].onmouseover = function () {
@@ -44,6 +67,9 @@ PhotoWall.prototype.funny = function(lst,i){
     }
 };
 
+/**
+ * 设置自动播放
+ */
 PhotoWall.prototype.autoPlay = function(){
     var me = this;
     if(me.index>5) {
@@ -53,6 +79,9 @@ PhotoWall.prototype.autoPlay = function(){
     PhotoWall.prototype.changeImg(me.index++);
 };
 
+/**
+ * 上传图片
+ */
 PhotoWall.prototype.uploadPhotos = function () {
     var me = this;
     var files = document.getElementById("input_upload_driver").files;
@@ -95,6 +124,12 @@ PhotoWall.prototype.uploadPhotos = function () {
 
 };
 
+/**
+ *
+ * @param file 从input中获取的参数
+ * @param r 暂时没啥用，后面应该会删掉
+ * 获取上传图片的元数据
+ */
 PhotoWall.prototype.getExifData= function(file,r){
     // console.log(file);
     var me = this;
@@ -155,6 +190,11 @@ PhotoWall.prototype.getExifData= function(file,r){
 
 };
 
+/**
+ *
+ * @param file
+ * 将解析的图片数据传给后台：包括图片的文件名、图片的拍摄地点、拍摄时间、GPS坐标
+ */
 PhotoWall.prototype.passPhotoInfo = function(file){
 
     $.ajax({
@@ -178,6 +218,12 @@ PhotoWall.prototype.passPhotoInfo = function(file){
 
 };
 
+/**
+ *
+ * @param res
+ * @constructor
+ * 根据上传的图片自动构造图片列表
+ */
 PhotoWall.prototype.CreateImage = function (res) {
     var me = this;
     me.ul = $("#thumbs-ul").css({
