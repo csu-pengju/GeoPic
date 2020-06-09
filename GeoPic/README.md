@@ -7,6 +7,7 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 ### modified by Daisy
 1. new project and add some supports
 
+
 ## 2020.06.01 13：00
 ### modified by Daisy
 1. Database table structure design
@@ -49,3 +50,12 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 
 1. Complete the map visualization of photos.However, the style is relatively simple and will be modified later
 2. The next step is to write the photo retrieval, first frame, write out the basic content
+
+## 2020.06.09 14：53
+### modified by Daisy
+1. 完成照片查询的前端界面设计
+2. 下一步完成根据输入条件从后台取得相应的照片
+3. 加了一个bootstrap库，本来想用它的下拉菜单的，但是由于涉及到其他样式的原因放弃了。
+
+1. Complete the front-end interface design of the photoQuery.
+2. The next step is to get the corresponding photos from the background according to the input conditions

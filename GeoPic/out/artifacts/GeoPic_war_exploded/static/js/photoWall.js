@@ -118,6 +118,7 @@ PhotoWall.prototype.uploadPhotos = function () {
 
         reader.readAsDataURL(file);
         reader.onload=function (ev) {
+            // console.log(this.result)
             me.CreateImage(this.result);
         }
     }
@@ -226,6 +227,7 @@ PhotoWall.prototype.passPhotoInfo = function(file){
  */
 PhotoWall.prototype.CreateImage = function (res) {
     var me = this;
+    // res = "../images/lunbo6.jpg";
     me.ul = $("#thumbs-ul").css({
         display:"inline",
         // width:300+"px",
@@ -239,7 +241,7 @@ PhotoWall.prototype.CreateImage = function (res) {
         float:'left',
 
     });
-    me.myA = $('<a href="'+res+' download =dsd.jpg"></a>').appendTo(me.myli);
+    me.myA = $('<a href="'+res+'"></a>').appendTo(me.myli);
 
     me.myImg = $('<img src="'+res+'"/>').appendTo(me.myA).css({
         width:180+"px",
