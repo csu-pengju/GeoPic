@@ -37,6 +37,7 @@ PhotoQuery.prototype.controlQueryCondition = function () {
 
 PhotoQuery.prototype.getQueryPhotoPath = function(){
     var me = this;
+    document.getElementById("photos-ul").innerHTML = "";
     me.condition = $(".selectC").val();
     console.log(me.condition)
     me.startTime = $(".fromDate-input").val();
@@ -65,7 +66,12 @@ PhotoQuery.prototype.getQueryPhotoPath = function(){
             },
             async:true,
             success:function (res){
-                console.log(res);
+                var json = typeof res=='string'?JSON.parse(res):res;
+
+                for(var i = 0;i<json.photoPath.length;i++){
+                    me.showQueryRes(json.photoPath[i]);
+                    console.log(json.photoPath[i]);
+                }
             },
         });
     }
@@ -140,7 +146,7 @@ PhotoQuery.prototype.showQueryRes = function (res) {
         float:'left',
 
     });
-    me.myA = $('<a href="'+res+' download =dsd.jpg"></a>').appendTo(me.myli);
+    me.myA = $('<a href="'+res+'"></a>').appendTo(me.myli);
 
     me.myImg = $('<img src="'+res+'"/>').appendTo(me.myA).css({
         width:180+"px",

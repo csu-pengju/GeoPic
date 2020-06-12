@@ -9,18 +9,31 @@
     <script type="text/javascript" src="../../support/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../js/photoWall.js"></script>
     <script src="../../support/exif.js"></script>
+<!--    <script async src="../../support/openCFv/opencv.js" type="text/javascript" onload="onOpencvReady()"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/gh/wallat/compiled-opencvjs/v4.2.0/opencv.js" async onload="onOpencvReady()" type=”text/javascript”></script>-->
+    <script type="text/javascript" src="../../support/opencv.js" async onload="onOpenCvReady();"></script>
     <script>
+
         var photoWall = new PhotoWall();
+        function onOpenCvReady(){
+            // 读取
+            let cv = window.cv;
+            cv['onRuntimeInitialized']=()=>{
+               photoWall.getFaceRect(cv);
 
+
+            };
+            console.log(cv);
+
+        }
     </script>
-
 
 </head>
 <body onload="photoWall.imageScroll()">
 <div>
     <div class="container">
         <div class="imgae-scroll" align="center">
-            <img src="../images/lunbo1.jpg" style="display: block;width: 100%;">
+            <img src="../images/lunbo1.jpg"  id = "inputCanvasId"style="display: block;width: 100%;">
             <img src="../images/lunbo2.jpg"style="display: none;width: 100%;">
             <img src="../images/lunbo3.jpg" style="display: none">
             <img src="../images/lunbo4.jpg" style="display: none">
@@ -66,6 +79,7 @@
                         </div>
                    </div>
                 </div>
+                <canvas id="ll"></canvas>
                 <div class="photoWallList-box">
                     <div class="thumbs">
                         <ul id="thumbs-ul">
@@ -82,4 +96,9 @@
     </div>
 </div>
 </body>
+<script>
+
+
+
+</script>
 </html>

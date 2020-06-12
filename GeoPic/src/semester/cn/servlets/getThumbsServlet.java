@@ -41,6 +41,7 @@ public class getThumbsServlet extends HttpServlet {
         boolean insertResult = photoService.insertPhotoInfo(photoInfo);
         JSONObject data = new JSONObject();
         JSONObject jsonObject = new JSONObject();
+        System.out.println(insertResult);
         if(insertResult){
             jsonObject.put("success:","photoInfo insert successfully");
             jsonObject.put("message","200");
@@ -61,15 +62,16 @@ public class getThumbsServlet extends HttpServlet {
     private Timestamp toTimeStamp(String time) {
         String dateString = "";
         System.out.println("我看看"+time);
-        if(time.equals("no timeInfo")||time==null){
-            dateString="00-00-00 00:00:00";
+        if(time==null||time.equals("no timeInfo")||time.length()==0){
+            System.out.println("进来吗");
+            dateString="9999-01-01 00:00:00";
         }else{
             String[]date = time.split(":");
 
             if(date.length==5){
                 dateString = date[0]+"-"+date[1]+"-"+date[2]+":"+date[3]+":"+date[4];
             }else{
-                dateString="00-00-00 00:00:00";
+                dateString=time;
             }
         }
 

@@ -1,21 +1,22 @@
 package semester.cn.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FaceInfo {
     private String facePath;
-    private List<String>faceLabels;
-    private List<String>faceTokens;
+    private ArrayList<String> faceLabels;
+    private ArrayList<String>faceTokens;
 
     public FaceInfo(){
 
     }
 
-    public List<String> getFaceLabels() {
+    public ArrayList<String> getFaceLabels() {
         return faceLabels;
     }
 
-    public List<String> getFaceTokens() {
+    public ArrayList<String> getFaceTokens() {
         return faceTokens;
     }
 
@@ -23,7 +24,7 @@ public class FaceInfo {
         return facePath;
     }
 
-    public void setFaceLabels(List<String> faceLabels) {
+    public void setFaceLabels(ArrayList<String> faceLabels) {
         this.faceLabels = faceLabels;
     }
 
@@ -31,7 +32,7 @@ public class FaceInfo {
         this.facePath = facePath;
     }
 
-    public void setFaceTokens(List<String> faceTokens) {
+    public void setFaceTokens(ArrayList<String> faceTokens) {
         this.faceTokens = faceTokens;
     }
 }

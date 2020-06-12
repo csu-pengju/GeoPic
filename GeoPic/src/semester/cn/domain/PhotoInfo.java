@@ -14,6 +14,7 @@ public class PhotoInfo {
     private ArrayList<Integer> facesId;//照片中人物的id
     private String photoPath;//照片的本地存储路径
     private String geo;//照片拍摄的GPS坐标
+    private String thumbsPath;
 
     private Map<String, List<String>> photoTimeAndPath = new HashMap<String,List<String>>();
 //    private List<String> photoPath
@@ -47,6 +48,14 @@ public class PhotoInfo {
 
     public Map<String, List<String>> getPhotoTimeAndPath() {
         return photoTimeAndPath;
+    }
+
+    public String getThumbsPath() {
+        return thumbsPath;
+    }
+
+    public void setThumbsPath(String thumbsPath) {
+        this.thumbsPath = thumbsPath;
     }
 
     public void setFacesId(ArrayList<Integer>facesId) {

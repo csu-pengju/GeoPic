@@ -2,6 +2,10 @@ package semester.cn.persistence.impl;
 
 import com.sun.org.apache.bcel.internal.generic.GOTO;
 import com.sun.org.apache.xerces.internal.xs.StringList;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
 import semester.cn.domain.PhotoInfo;
 import semester.cn.persistence.PhotoDao;
 import semester.cn.persistence.UtilDao;
@@ -17,6 +21,7 @@ public class photoDaoIml  implements PhotoDao {
 //        " values (?,?,?,?)";
     private static String getPhotoGPSAndPath = "select st_astext(geo) as geo,photopath " +
         "from photoinfo";
+    private static String getAllPhotoPath = "select photopath from photoinfo order by takentime desc";
 
     @Override
     public PhotoInfo getPhotoByPath(PhotoInfo photoInfo) {
@@ -30,8 +35,8 @@ public class photoDaoIml  implements PhotoDao {
         Connection connection = null;
         try {
             String insertPhotoInfoSql = "";
-            System.out.println(photoInfo.getGeo());
-            if(photoInfo.getGeo().equals("no GPSInfo")){
+            System.out.println(photoInfo.getGeo()+"hellll");
+            if(photoInfo.getGeo().equals("no GPSInfo")||photoInfo.getGeo().equals("")){
                 System.out.println("我进来了嘛"+photoInfo.getGeo());
                insertPhotoInfoSql = "insert into photoinfo " +
                         " (takenplace,takentime,photopath,photolabels,facesid) " +
@@ -124,6 +129,33 @@ public class photoDaoIml  implements PhotoDao {
             e.printStackTrace();
         }
         return placeQueryRes;
+    }
+
+    @Override
+    public ArrayList<String> getAllPhotoPath() {
+        ArrayList<String> res = new ArrayList<>();
+        Connection conn;
+        try{
+            conn = UtilDao.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(getAllPhotoPath);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                String path = resultSet.getString(1);
+                res.add(path);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    @Override
+    public boolean getThumbs() {
+//        System.out.println("Welcome to OpenCV " + Core.VERSION);
+//        Mat m = new Mat(5, 10, CvType.CV_8UC1, new Scalar(0));
+//        System.out.println("OpenCV Mat: " + m);
+        return false;
     }
 
 

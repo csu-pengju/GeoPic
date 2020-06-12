@@ -75,3 +75,17 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 
 1. Completed the transfer of the photo data from the front end to the back end, and the back end implementation converted the base64 data into images and saved them in a specific folder.
 2. Write the initialization photo wall tomorrow to display the images saved in the directory.
+
+## modified by Daisy
+### 2020.06.12 15:16
+1. 完成了初始化照片墙
+2. 完成了人脸检测并将检测到的人脸保存到项目目录下和上传到数据库
+3. 我放弃使用opencv进行人脸检测了
+4. 下一步写将保存的人脸返回客户端显示，让用户输入人脸标签；
+5. 再写创建faceAPI中的faceSet，用于存储检测到的face_token,为人脸搜索做准备。
+
+1. Completed the initialization of photo wall
+2. Completed face detection and saved the detected faces to the project directory and uploaded them to the database
+3. I gave up using Opencv for face detection
+4. Next I'll write the saved face back to the client display, and let the user input face label;
+5. Write again to create faceSet in faceAPI to store the detected FACE_Token in preparation for face search.

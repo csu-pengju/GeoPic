@@ -51,4 +51,18 @@ public class PhotoService {
         photoDao = new photoDaoIml();
         return photoDao.getPlaceQueryPhotoPath(geo,address);
     }
+
+    /**
+     * 用于获取初始化界面的照片墙显示的照片路径
+     * @return 返回当前数据库中存储的所有照片的相对路径
+     */
+    public ArrayList<String> getAllPhotoPath(){
+        photoDao  = new photoDaoIml();
+        return photoDao.getAllPhotoPath();
+    }
+
+    public  boolean getThumbs(){
+        photoDao = new photoDaoIml();
+        return photoDao.getThumbs();
+    }
 }

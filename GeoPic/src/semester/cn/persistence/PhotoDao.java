@@ -13,4 +13,6 @@ public interface PhotoDao {
     public HashMap<String,String> getPhotoGPSAndPath();
     public ArrayList<String> getTimeQueryPhotoPath(String startTime, String endTime);
     public ArrayList<String> getPlaceQueryPhotoPath(String geo,String address);
+    public ArrayList<String> getAllPhotoPath();
+    public boolean getThumbs();
 }

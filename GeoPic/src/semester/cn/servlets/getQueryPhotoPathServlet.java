@@ -1,6 +1,7 @@
 package semester.cn.servlets;
 
 import net.sf.json.JSON;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import semester.cn.services.PhotoService;
 
@@ -32,13 +33,12 @@ public class getQueryPhotoPathServlet extends HttpServlet {
         System.out.println("condition ："+condition);
         System.out.println("address"+address);
         System.out.println("geo"+geo);
-
         ArrayList<String> res = new ArrayList<>();
         switch (condition){
             case("timeQuery"):
                 photoService = new PhotoService();
                 res = photoService.getTimeQueryPhotoPath(startTime,endTime);
-                System.out.println(res);
+                System.out.println("时间查询"+res);
                 break;
             case("placeQuery"):
                 photoService = new PhotoService();
@@ -52,6 +52,20 @@ public class getQueryPhotoPathServlet extends HttpServlet {
             default:
                 break;
         }
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        if(res.size()>0){
+            jsonObject.put("message","query success");
+            jsonObject.put("success",200);
+            for(String path:res){
+                jsonArray.add(path);
+            }
+        }else{
+            jsonObject.put("message","fail to getQuery result");
+            jsonObject.put("success",000);
+        }
+        jsonObject.put("photoPath",jsonArray);
+        out.write(jsonObject.toString());
     }
 
     @Override

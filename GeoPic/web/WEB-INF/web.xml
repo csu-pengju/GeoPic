@@ -62,4 +62,23 @@
         <servlet-name>getPhotoDataServlet</servlet-name>
         <url-pattern>/getPhotoDataServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>initPhotoWallServlet</servlet-name>
+        <servlet-class>semester.cn.servlets.initPhotoWallServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>initPhotoWallServlet</servlet-name>
+        <url-pattern>/initPhotoWallServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>uploadFaceInfoServlet</servlet-name>
+        <servlet-class>semester.cn.servlets.uploadFaceInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadFaceInfoServlet</servlet-name>
+        <url-pattern>/uploadFaceInfoServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>

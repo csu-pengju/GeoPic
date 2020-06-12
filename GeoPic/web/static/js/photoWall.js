@@ -20,7 +20,8 @@ var photoData = "";
  *
  */
 PhotoWall = function (options) {
-
+    var me = this;
+    me.initPhotoWall();
 };
 
 /**
@@ -78,42 +79,37 @@ PhotoWall.prototype.autoPlay = function(){
     // me.changeImg(me.index++); //不知道为什么用这句话会返回me.changeImg is not a function
     PhotoWall.prototype.changeImg(me.index++);
 };
+/**
+ * 用于初始化显示照片墙
+ */
+PhotoWall.prototype.initPhotoWall = function(){
+    var me = this;
+    $.ajax({
+        type:"POST",
+        url:"/initPhotoWallServlet",
+        // dataType:"json",
+        data:"",
+        success:function (res) {
+            var json = typeof res=='string'?JSON.parse(res):res;
+            for (var i = 0;i<json.photoPath.length;i++){
+                // console.log(json.photoPath[i]);
+                me.CreateImage(json.photoPath[i]);
+            }
+        }
+    });
+};
 
 /**
- * 上传图片
+ * 上传图片的入口
  */
 PhotoWall.prototype.uploadPhotos = function () {
     var me = this;
     var files = document.getElementById("input_upload_driver").files;
-     me.passPhotoData();
+    me.passPhotoData();
     for(var i = 0;i<files.length;i++){
         var file = files[i];
-        me.getExifData(file,r);
+        me.getExifData(file);
         var reader = new FileReader();
-        var r = new FileReader();
-        r.readAsDataURL(file);
-        r.onloadend = function (ev) {
-            photoData = this.result;
-            var formdata = new FormData();
-            // formdata.append('file',file);
-            // formdata.append("a",'dddd');
-
-
-            // $.ajax({
-            //     type:"POST",
-            //     url:"/StoreServlet",
-            //     dataType: 'json',
-            //     // data:photoData,
-            //     data: JSON.stringify(formdata),
-            //     contentType : false,
-            //     processData : false,  //必须false才会避开jQuery对 formdata 的默认处理
-            //     cache : false,
-            //     async:true,
-            //     success:function (res) {
-            //         console.log("上传完成");
-            //     }
-            // });
-        }
         reader.readAsDataURL(file);
         reader.onload=function (ev) {
             // console.log(this.result)
@@ -122,10 +118,14 @@ PhotoWall.prototype.uploadPhotos = function () {
     }
 };
 
+/**
+ * 用于将读取的图片的文件名,base_64格式的数据传到后台
+ */
 PhotoWall.prototype.passPhotoData = function(){
     var me = this;
+    // me.getFaceRect();
     var files = document.getElementById("input_upload_driver").files;
-
+    console.log("我看看不弄了几次啊");
     for(var i = 0;i<files.length;i++){
         var file = files[i];
         var reader = new FileReader();
@@ -133,8 +133,12 @@ PhotoWall.prototype.passPhotoData = function(){
         r.readAsDataURL(file);
         r.onloadend= function (ev) {
             photoData = this.result;
-            console.log(photoData);
+            // console.log(photoData);
+            console.log(file.name);
             var photoDat = photoData.replace("data:image/jpeg;base64",file.name);
+            photoDat = photoDat.replace("data:image/png;base64",file.name);
+            photoDat = photoDat.replace("data:image/gif;base64",file.name);
+            photoDat = photoDat.replace("data:image/bmp;base64",file.name);
             $.ajax({
                 type:"POST",
                 url:"/getPhotoDataServlet",
@@ -145,12 +149,92 @@ PhotoWall.prototype.passPhotoData = function(){
                 async:true,
                 success:function (res) {
                     console.log("上传完成");
+                    me.getFaceInfo(photoDat,file);
                 }
             });
+
         }
-        reader.readAsDataURL(file);
 
     }
+};
+/**
+ * 将上传的照片上传到face++ API to detect faces in photo
+ * @param photoData emmm,没用,要删掉的
+ * @param file  input获取的file
+ */
+PhotoWall.prototype.getFaceInfo = function(photoData,file){
+    var me = this;
+    me.faces = [];
+    var ph = photoData.replace(file.name+",","");
+    let data = new FormData();
+    data.append('api_key', "ms3MvC2UjwJBlSs5wNTVj-3SXPPAURq3");
+    data.append('api_secret', "P6wgCmBYbeFGRG76cwTOTe6k2V5jS1vY");
+    data.append('image_file', file)
+    var detectData ='api_key=ms3MvC2UjwJBlSs5wNTVj-3SXPPAURq3&api_secret=P6wgCmBYbeFGRG76cwTOTe6k2V5jS1vY'+
+        '&image_file='+file;
+    $.ajax({
+        url:"https://api-cn.faceplusplus.com/facepp/v3/detect",
+        type:"POST",
+        data:data,
+        cache: false,
+        processData: false,
+        contentType: false,
+        // dataType:"json",
+        success:function (res) {
+            console.log(res);
+            var json = typeof res=='string'?JSON.parse(res):res;
+            var face_num = json.face_num;
+            var faces = json.faces;
+            me.faces = []
+            // console.log(faces)
+            if(face_num>0){
+                for(var i = 0;i<face_num;i++){
+                    me.faces[i] = faces[i];
+                }
+                var data = {}
+                data["faces"] = me.faces
+               me.uploadFaceInfo(data,file);
+                console.log(data)
+            }else{
+                console.log("no faceInfo")
+            }
+        },
+        error:function (err) {
+            console.log(err)
+        }
+    });
+
+};
+
+/**
+ * 将检测到的人脸信息传到后台
+ * @param faces face++ 人脸检测返回的人脸信息:face_token和face_rectangle(top,left,height,width)
+ */
+PhotoWall.prototype.uploadFaceInfo = function(faces,file){
+    var me = this;
+    console.log(faces)
+    console.log(typeof faces.toString())
+    // console.log(faces[0])
+    $.ajax({
+        type:'POST',
+        url:"/uploadFaceInfoServlet",
+        dateType:'json',
+        data:
+            {
+                "faces":JSON.stringify(faces),
+                "file":file.name
+            },
+        success:function (res) {
+            console.log(res);
+        },
+        error:function (err) {
+
+        }
+    });
+};
+
+PhotoWall.prototype.getFaceRect = function(cv,x,y,width,height){
+
 };
 
 /**
@@ -159,7 +243,7 @@ PhotoWall.prototype.passPhotoData = function(){
  * @param r 暂时没啥用，后面应该会删掉
  * 获取上传图片的元数据
  */
-PhotoWall.prototype.getExifData= function(file,r){
+PhotoWall.prototype.getExifData= function(file){
 
     var me = this;
     var location = "";
@@ -267,7 +351,8 @@ PhotoWall.prototype.CreateImage = function (res) {
         height:180+"px"
     }).addClass("myImg");
     // console.log(me.myImg)
-}
+};
+
 
 
 
