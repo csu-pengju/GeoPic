@@ -99,3 +99,13 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 1. Create a face data set FaceSet to store the FACE_token for all detected faces
 2. Complete the process of face detection, face search and face addition.And the path of the added face can be returned from the background.
 3. To be completed: The newly added face will be displayed on the client, and the user will input the character label to complete the character labeling
+
+## modified by Daisy
+### 2020.06.19 20:00
+1. 完成在客户端的人脸标签输入，当检测到人脸，并且数据库中没有这个人时，弹出模态框，用户输入人物标签
+2. 完成在服务端的人脸标签入库
+3. 下一步：将人脸id关联到相应的照片
+
+1. Complete the face label input in the client. When the face is detected and there is no such person in the database, a modal box pops up and the user enters the character label
+2. Complete the warehousing of face tags on the server
+3. Next: Associate the face ID with the corresponding photo

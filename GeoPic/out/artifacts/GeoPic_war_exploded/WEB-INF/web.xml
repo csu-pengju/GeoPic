@@ -81,4 +81,13 @@
         <url-pattern>/uploadFaceInfoServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>upLoadFaceLabelServlet</servlet-name>
+        <servlet-class>semester.cn.servlets.upLoadFaceLabelServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>upLoadFaceLabelServlet</servlet-name>
+        <url-pattern>/upLoadFaceLabelServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>

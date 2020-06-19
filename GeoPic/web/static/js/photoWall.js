@@ -150,6 +150,28 @@ PhotoWall.prototype.createFaceSet = function(){
     });
 };
 
+PhotoWall.prototype.removeFaceToken = function(){
+
+    let data = new FormData();
+    data.append('api_key', "ms3MvC2UjwJBlSs5wNTVj-3SXPPAURq3");
+    data.append('api_secret', "P6wgCmBYbeFGRG76cwTOTe6k2V5jS1vY");
+    data.append('outer_id',"GeoPic");
+    data.append("face_tokens","RemoveAllFaceTokens")
+    $.ajax({
+        url:" https://api-cn.faceplusplus.com/facepp/v3/faceset/removeface",
+        type:"POST",
+        data:data,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success:function (res) {
+            console.log(res)
+        },
+        error:function (err) {
+            console.log(err)
+        }
+    });
+};
 /**
  * 用于将读取的图片的文件名,base_64格式的数据传到后台
  */
@@ -220,10 +242,10 @@ PhotoWall.prototype.getFaceInfo = function(photoData,file){
             me.faces = []
             if(face_num>0){
                 for(var i = 0;i<face_num;i++){
-                    // me.faces[i] = faces[i];
-                    //me.addFace_tokenToFaceSet(faces[i].face_token);
+
                     //从FaceSet集合中搜索与检测出的人脸最相似的照片，若相似度大于75，我们认为这是同一个人
                     me.searchRes = [];
+                    //这里我采用的同步方式，不知道后面后不会造成堵塞
                     me.searchFace(faces[i].face_token);
 
                     if(me.searchRes.length>0){
@@ -250,6 +272,10 @@ PhotoWall.prototype.getFaceInfo = function(photoData,file){
 
 };
 
+/**
+ * 用于人脸检测
+ * @param face_token 人脸的标识face_token
+ */
 PhotoWall.prototype.searchFace = function(face_token){
     var me = this;
     var searchRes = [];
@@ -272,9 +298,8 @@ PhotoWall.prototype.searchFace = function(face_token){
             for(var i = 0;i<json.results.length;i++){
                 var confidence = json.results[i].confidence;
                 var face_token = json.results[i].face_token.toString();
-                console.log(typeof confidence);
+                //这里数值比较的方式需要注意，不能直接比较，需要使用eval函数，置信度75不知道低不
                 if(eval(confidence)>eval(75)){
-
                     me.searchRes.push(face_token);
                     break;
                 }
@@ -334,16 +359,56 @@ PhotoWall.prototype.uploadFaceInfo = function(faces,file){
                 "file":file.name
             },
         success:function (res) {
-            console.log(res);
+            var json = typeof res=='string'?JSON.parse(res):res;
+            var dir = "../data/faces/";
+            var facesData = json.facesName;
+            var facesPath = json.facesPath;
+            for(var i = 0 ;i<facesData.length;i++){
+               // var facePath = dir+facesName[i];
+                me.showFaceModal(facesData[i],facesPath[i]);
+            }
+
         },
         error:function (err) {
-
         }
     });
 };
 
-PhotoWall.prototype.getFaceRect = function(cv,x,y,width,height){
+PhotoWall.prototype.showFaceModal=function(facesData,facesPath){
+    var me = this;
+    //这样直接设置图片路径有问题，因为浏览器对于静态资源的加载不是同步的，所以我们直接传入人脸的base64数据，这个数据由后台返回
+    var base64 = "data:image/jpeg;base64,"+facesData;
+    $("#faceImg").attr("src",base64);
+    $(".modal").css({
+        display:"block"
+    });
+    $("#cancelInputFaceLabel").click(function () {
+        alert("请输入人物标签");
+    });
+    $("#sureInputFaceLabel").click(function () {
+       me.handelFaceLabel(facesPath);
+    });
+};
 
+PhotoWall.prototype.handelFaceLabel= function(facesPath){
+    var me = this;
+    var faceLabel = $("#facelabelText").val();
+    console.log(facesPath)
+    $.ajax({
+        url:"/upLoadFaceLabelServlet",
+        type:"POST",
+        dataType:"json",
+        data:{
+            "faceLabel":faceLabel,
+            "facePath":facesPath
+        },
+        success:function (res) {
+            console.log(res)
+        },
+        error:function (err) {
+            console.log(err)
+        }
+    });
 };
 
 /**

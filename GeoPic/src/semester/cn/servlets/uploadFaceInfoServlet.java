@@ -6,6 +6,7 @@ import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import semester.cn.domain.FaceInfo;
 import semester.cn.services.FaceService;
+import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -14,9 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -36,6 +35,7 @@ public class uploadFaceInfoServlet extends HttpServlet {
         int faceDirNum = list.length;
         JSONObject res = new JSONObject();
         JSONArray facesName = new JSONArray();
+        JSONArray facesPath = new JSONArray();
         boolean insertResult =false;
         JSONObject jsonObject = JSONObject.fromObject(faces);
         JSONArray jsonArray = jsonObject.getJSONArray("faces");
@@ -59,13 +59,17 @@ public class uploadFaceInfoServlet extends HttpServlet {
                 int width = (int)objRect.get("width");
                 int height =(int)objRect.get("height");
                 saveFace(top,left,width,height,faceDirPath,oriImagePath);
-                facesName.add(faceId+".jpg");
+                String faceBase64 = getImgBase64(faceDirPath);
+                facesName.add(faceBase64);
+                facesPath.add(faceStorePath);
+                System.out.println(faceBase64);
             }
         }
         if(insertResult){
             res.put("message","insert and Save faceInfo successfully");
             res.put("success","200");
             res.put("facesName",facesName);
+            res.put("facesPath",facesPath);
         }
         out.write(res.toString());
     }
@@ -80,5 +84,25 @@ public class uploadFaceInfoServlet extends HttpServlet {
             BufferedImage subImage=bufferedImage.getSubimage(left,top,width,height);
             ImageIO.write(subImage,"JPEG",new File(facePath));
         return  true;
+    }
+
+    //获取人脸的base64数据
+    protected String getImgBase64(String facePath) {
+        InputStream in = null;
+        byte[] data = null;
+
+        // 读取图片字节数组
+        try {
+            in = new FileInputStream(facePath);
+
+            data = new byte[in.available()];
+            in.read(data);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 对字节数组Base64编码
+        BASE64Encoder encoder = new BASE64Encoder();
+        return encoder.encode(data);// 返回Base64编码过的字节数组字符串
     }
 }

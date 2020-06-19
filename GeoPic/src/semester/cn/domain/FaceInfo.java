@@ -5,11 +5,20 @@ import java.util.List;
 
 public class FaceInfo {
     private String facePath;
+    private String faceLabel;
     private ArrayList<String> faceLabels;
     private ArrayList<String>faceTokens;
 
     public FaceInfo(){
 
+    }
+
+    public String getFaceLabel() {
+        return faceLabel;
+    }
+
+    public void setFaceLabel(String faceLabel) {
+        this.faceLabel = faceLabel;
     }
 
     public ArrayList<String> getFaceLabels() {

@@ -21,7 +21,10 @@ public class FaceDaoImpl implements FaceDao {
             for(int i = 0;i<arrayList.size();i++){
                 facetokens +=arrayList.get(i);
                 if(i<arrayList.size()-1)
+                {
                     facetokens+=",";
+                }
+
             }
             String insertFaceInfoSql = "";{
 
@@ -41,5 +44,28 @@ public class FaceDaoImpl implements FaceDao {
             e.printStackTrace();
         }
         return insertResult;
+    }
+
+    @Override
+    public boolean updateFaceLabelToDB(FaceInfo faceInfo) {
+        boolean updateFaceLabelResult = false;
+        Connection conn = null;
+        try{
+            System.out.println(faceInfo.getFacePath());
+            String updateFaceLabelSql = "update faceinfo set facelabel = '" +
+                      faceInfo.getFaceLabel()+"'"+
+                    " where facepath ='"+faceInfo.getFacePath()+"'";
+            conn = UtilDao.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(updateFaceLabelSql);
+            int result = preparedStatement.executeUpdate();
+            System.out.println(result);
+            if(result>0){
+                updateFaceLabelResult = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateFaceLabelResult;
     }
 }

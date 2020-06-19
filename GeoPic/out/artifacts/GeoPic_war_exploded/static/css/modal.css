@@ -1,0 +1,111 @@
+.center-xy:before,.center-self-xy {
+    position: absolute;
+    left: 35%;
+    top: 50%;
+    -webkit-transform:translate(-50%,-50%);
+    transform:translate(-50%,-50%);
+}
+/* 模态框 */
+.modal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 9999;
+    display: none;
+}
+.modal-info {
+    width: 40%;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding:10px;
+    box-sizing:border-box;
+}
+.modal-face {
+    height: 280px;
+    text-align: center;
+    position: relative;
+    left: 15%;
+}
+.modal-face img{
+    width: 260px;
+    height: 260px;
+}
+.modal-label{
+    display: inline-block;
+    height: 50px;
+    text-align: center;
+    position: relative;
+}
+.modal-label span{
+    float: left;
+    margin-left: 5%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 18px;
+    color: rgba(0,0,0,0.8);
+}
+.modal-label input{
+    position: relative;
+    margin-left: -25%;
+    width: 40%;
+    height: 40px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    padding-left: 30px;
+    font-size: 18px;
+}
+.modal-face p {
+    width: 100%;
+}
+.modal-b {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+.modal button {
+    width: 45%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 20px;
+}
+.modal button.sure{
+    background-color: #D90000;
+    color: #fff;
+}
+@keyframes mYBounceInDown {
+    from, 60%, 75%, 90%, to {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+
+    0% {
+        opacity: 0;
+        transform: translate3d(-50%, -3000px, 0);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translate3d(-50%, -30%, 0);
+    }
+
+    75% {
+        transform: translate3d(-50%, -60%, 0);
+    }
+
+    90% {
+        transform: translate3d(-50%, -45%, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, -50%, 0);
+    }
+}
+
+.mYBounceInDown {
+    animation: mYBounceInDown ease 1s forwards;
+}
+

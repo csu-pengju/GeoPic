@@ -41,9 +41,9 @@
         <option value="Python Script" />
         <option value="JavaScript File" />
         <option value="HTML File" />
-        <option value="CSS File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -193,7 +193,7 @@
       <workItem from="1591678226212" duration="86275000" />
       <workItem from="1592051002329" duration="136000" />
       <workItem from="1592146154678" duration="612000" />
-      <workItem from="1592492118458" duration="12416000" />
+      <workItem from="1592492118458" duration="26714000" />
     </task>
     <servers />
   </component>
