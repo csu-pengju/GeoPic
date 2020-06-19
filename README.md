@@ -89,3 +89,13 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 3. I gave up using Opencv for face detection
 4. Next I'll write the saved face back to the client display, and let the user input face label;
 5. Write again to create faceSet in faceAPI to store the detected FACE_Token in preparation for face search.
+
+## modified by Daisy
+### 2020.06.19 13：13
+1. 创建人脸数据集FaceSet，用于存储所有检测到的人脸的face_token
+2. 完成人脸检测、人脸搜索、人脸添加的过程。并且可以从后台返回添加的人脸的路径
+3. 待完成：将新添加的人脸显示在客户端，由用户输入人物标签，完成人物的标注
+
+1. Create a face data set FaceSet to store the FACE_token for all detected faces
+2. Complete the process of face detection, face search and face addition.And the path of the added face can be returned from the background.
+3. To be completed: The newly added face will be displayed on the client, and the user will input the character label to complete the character labeling

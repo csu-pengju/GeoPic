@@ -35,6 +35,7 @@ public class uploadFaceInfoServlet extends HttpServlet {
         File list[] = file.listFiles();
         int faceDirNum = list.length;
         JSONObject res = new JSONObject();
+        JSONArray facesName = new JSONArray();
         boolean insertResult =false;
         JSONObject jsonObject = JSONObject.fromObject(faces);
         JSONArray jsonArray = jsonObject.getJSONArray("faces");
@@ -58,11 +59,13 @@ public class uploadFaceInfoServlet extends HttpServlet {
                 int width = (int)objRect.get("width");
                 int height =(int)objRect.get("height");
                 saveFace(top,left,width,height,faceDirPath,oriImagePath);
+                facesName.add(faceId+".jpg");
             }
         }
         if(insertResult){
             res.put("message","insert and Save faceInfo successfully");
             res.put("success","200");
+            res.put("facesName",facesName);
         }
         out.write(res.toString());
     }

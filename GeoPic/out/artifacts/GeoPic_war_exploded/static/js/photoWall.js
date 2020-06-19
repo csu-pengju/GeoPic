@@ -13,6 +13,11 @@ var formatted_address ="";
 var takenTime = "";
 var geo="";
 var photoData = "";
+var api_key = "ms3MvC2UjwJBlSs5wNTVj-3SXPPAURq3";
+var api_secret = "P6wgCmBYbeFGRG76cwTOTe6k2V5jS1vY";
+var faceset_token = "2d7ddb438c720087b2d4e95c22535d41";
+var outer_id = "GeoPic";
+
 /**
  *
  * @param options
@@ -21,6 +26,7 @@ var photoData = "";
  */
 PhotoWall = function (options) {
     var me = this;
+    me.searchRes = [];
     me.initPhotoWall();
 };
 
@@ -119,6 +125,32 @@ PhotoWall.prototype.uploadPhotos = function () {
 };
 
 /**
+ * 创建faceset,用来保存检测出的每张人脸的face_token,用于后续的人脸搜索。
+ * 只需要调用一次获取faceset,已调用，后续不需在调用此函数，只需要使用全局变量faceset_token（FaceSet的标识）
+ */
+PhotoWall.prototype.createFaceSet = function(){
+
+    let data = new FormData();
+    data.append('api_key', "ms3MvC2UjwJBlSs5wNTVj-3SXPPAURq3");
+    data.append('api_secret', "P6wgCmBYbeFGRG76cwTOTe6k2V5jS1vY");
+    data.append('outer_id',"GeoPic")
+    $.ajax({
+        url:"https://api-cn.faceplusplus.com/facepp/v3/faceset/create",
+        type:"POST",
+        data:data,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success:function (res) {
+            console.log(res)
+        },
+        error:function (err) {
+            console.log(err)
+        }
+    });
+};
+
+/**
  * 用于将读取的图片的文件名,base_64格式的数据传到后台
  */
 PhotoWall.prototype.passPhotoData = function(){
@@ -186,15 +218,27 @@ PhotoWall.prototype.getFaceInfo = function(photoData,file){
             var face_num = json.face_num;
             var faces = json.faces;
             me.faces = []
-            // console.log(faces)
             if(face_num>0){
                 for(var i = 0;i<face_num;i++){
-                    me.faces[i] = faces[i];
+                    // me.faces[i] = faces[i];
+                    //me.addFace_tokenToFaceSet(faces[i].face_token);
+                    //从FaceSet集合中搜索与检测出的人脸最相似的照片，若相似度大于75，我们认为这是同一个人
+                    me.searchRes = [];
+                    me.searchFace(faces[i].face_token);
+
+                    if(me.searchRes.length>0){
+                        console.log("数据库中已有此人物")
+                    }else{
+                        me.addFace_tokenToFaceSet(faces[i].face_token);
+                        me.faces.push(faces[i]);
+                    }
                 }
-                var data = {}
-                data["faces"] = me.faces
-               me.uploadFaceInfo(data,file);
-                console.log(data)
+                if(me.faces.length>0){
+                    var data = {};
+                    data["faces"] = me.faces;
+                    me.uploadFaceInfo(data,file);
+                    console.log(data)
+                }
             }else{
                 console.log("no faceInfo")
             }
@@ -206,6 +250,72 @@ PhotoWall.prototype.getFaceInfo = function(photoData,file){
 
 };
 
+PhotoWall.prototype.searchFace = function(face_token){
+    var me = this;
+    var searchRes = [];
+    var data = new FormData();
+    data.append("api_key",api_key);
+    data.append("api_secret",api_secret);
+    data.append("face_token",face_token);
+    data.append("faceset_token",faceset_token);
+    $.ajax({
+        url:"https://api-cn.faceplusplus.com/facepp/v3/search",
+        type:"POST",
+        data:data,
+        cache:false,
+        processData:false,
+        contentType:false,
+        async:false,
+        success:function (res) {
+            var json = typeof res=='string'?JSON.parse(res):res;
+            console.log(json);
+            for(var i = 0;i<json.results.length;i++){
+                var confidence = json.results[i].confidence;
+                var face_token = json.results[i].face_token.toString();
+                console.log(typeof confidence);
+                if(eval(confidence)>eval(75)){
+
+                    me.searchRes.push(face_token);
+                    break;
+                }
+            }
+            return me.searchRes;
+        },
+        error:function (err) {
+            console.log(err)
+            return err;
+        }
+    });
+    //return searchRes;
+}
+
+/**
+ * 将人脸的face_token添加至FaceSet
+ * @param face_token :检测出的图片中人脸的唯一标识face_token
+ */
+PhotoWall.prototype.addFace_tokenToFaceSet = function(face_token){
+    var me = this;
+    var data = new FormData();
+    data.append("api_key",api_key);
+    data.append("api_secret",api_secret);
+    data.append("faceset_token",faceset_token);
+    data.append("face_tokens",face_token);
+    $.ajax({
+        url:"https://api-cn.faceplusplus.com/facepp/v3/faceset/addface",
+        type:"POST",
+        data:data,
+        cache:false,
+        processData:false,
+        contentType:false,
+        success:function (res) {
+            console.log(res)
+        },
+        error:function (err) {
+            console.log(err)
+        }
+    });
+};
+
 /**
  * 将检测到的人脸信息传到后台
  * @param faces face++ 人脸检测返回的人脸信息:face_token和face_rectangle(top,left,height,width)
@@ -213,8 +323,7 @@ PhotoWall.prototype.getFaceInfo = function(photoData,file){
 PhotoWall.prototype.uploadFaceInfo = function(faces,file){
     var me = this;
     console.log(faces)
-    console.log(typeof faces.toString())
-    // console.log(faces[0])
+
     $.ajax({
         type:'POST',
         url:"/uploadFaceInfoServlet",
