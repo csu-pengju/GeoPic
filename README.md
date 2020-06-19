@@ -4,6 +4,10 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 # Update Daily
 
 ## modified by Daisy
+### 2020.06.19 21：05
+1. 解决click事件的累加绑定,先使用off在使用on
+
+## modified by Daisy
 ### 2020.06.19 20:00
 1. 完成在客户端的人脸标签输入，当检测到人脸，并且数据库中没有这个人时，弹出模态框，用户输入人物标签
 2. 完成在服务端的人脸标签入库

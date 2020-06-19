@@ -150,6 +150,9 @@ PhotoWall.prototype.createFaceSet = function(){
     });
 };
 
+/**
+ * 这个函数存在的意义是我测试时将所有的能用到的含有人物的照片都用过了，所以对于后面我上传的每张图片都没法进行人物标签的测试
+ */
 PhotoWall.prototype.removeFaceToken = function(){
 
     let data = new FormData();
@@ -258,6 +261,7 @@ PhotoWall.prototype.getFaceInfo = function(photoData,file){
                 if(me.faces.length>0){
                     var data = {};
                     data["faces"] = me.faces;
+
                     me.uploadFaceInfo(data,file);
                     console.log(data)
                 }
@@ -360,11 +364,12 @@ PhotoWall.prototype.uploadFaceInfo = function(faces,file){
             },
         success:function (res) {
             var json = typeof res=='string'?JSON.parse(res):res;
+
             var dir = "../data/faces/";
             var facesData = json.facesName;
             var facesPath = json.facesPath;
             for(var i = 0 ;i<facesData.length;i++){
-               // var facePath = dir+facesName[i];
+
                 me.showFaceModal(facesData[i],facesPath[i]);
             }
 
@@ -383,17 +388,20 @@ PhotoWall.prototype.showFaceModal=function(facesData,facesPath){
         display:"block"
     });
     $("#cancelInputFaceLabel").click(function () {
-        alert("请输入人物标签");
+        console.log("wool看")
+        // alert("请输入人物标签");
     });
-    $("#sureInputFaceLabel").click(function () {
+    console.log(facesPath+"dada死了死了")
+    $("#sureInputFaceLabel").off("click").on('click',function () {
        me.handelFaceLabel(facesPath);
+
     });
 };
 
 PhotoWall.prototype.handelFaceLabel= function(facesPath){
     var me = this;
     var faceLabel = $("#facelabelText").val();
-    console.log(facesPath)
+    // console.log(facesPath)
     $.ajax({
         url:"/upLoadFaceLabelServlet",
         type:"POST",
@@ -403,10 +411,18 @@ PhotoWall.prototype.handelFaceLabel= function(facesPath){
             "facePath":facesPath
         },
         success:function (res) {
-            console.log(res)
+            console.log(res);
+            $(".modal").css({
+                display:"none"
+            });
+            $("#faceImg").attr("src","");
+            $("#facelabelText").val("");
         },
         error:function (err) {
             console.log(err)
+            $(".modal").css({
+                display:"none"
+            });
         }
     });
 };
