@@ -56,23 +56,47 @@ public class uploadPhotoLabelAndFaceIdServlet extends HttpServlet {
         boolean updateRes = false;
         String photoPath = request.getParameter("photoPath");
         String facesPath = request.getParameter("facesPath");
+        String faceTokens = request.getParameter("faceTokens");
         ArrayList<Integer> facesId = new ArrayList<>();
+        faceInfo = new FaceInfo();
         if(facesPath.contains(",")){
             String []facePath = facesPath.split(",");
             for(int i = 0;i<facePath.length;i++){
-                faceInfo = new FaceInfo();
                 faceInfo.setFacePath(facePath[i]);
                 faceService = new FaceService();
                 int faceId = faceService.getFaceIdAccordingFacePath(faceInfo);
                 facesId.add(faceId);
             }
         }else if(facesPath!=""){
-            faceInfo = new FaceInfo();
+
             faceInfo.setFacePath(facesPath);
             faceService = new FaceService();
             int faceId = faceService.getFaceIdAccordingFacePath(faceInfo);
             facesId.add(faceId);
         }else{
+            updateRes = false;
+        }
+
+        if(faceTokens.contains(",")){
+            String[] faceToken = faceTokens.split(",");
+            for(int i = 0;i<faceToken.length;i++){
+
+                ArrayList<String> faceTokenList = new ArrayList<>();
+                faceTokenList.add(faceToken[i]);
+                faceInfo.setFaceTokens(faceTokenList);
+                faceService = new FaceService();
+                int faceId = faceService.getFaceIdAccordingFaceToken(faceInfo);
+                facesId.add(faceId);
+            }
+        }else if(faceTokens!=""){
+
+            ArrayList<String> faceTokenList = new ArrayList<>();
+            faceTokenList.add(faceTokens);
+            faceInfo.setFaceTokens(faceTokenList);
+            faceService = new FaceService();
+            int faceId = faceService.getFaceIdAccordingFaceToken(faceInfo);
+            facesId.add(faceId);
+        }else {
             updateRes = false;
         }
         photoInfo = new PhotoInfo();

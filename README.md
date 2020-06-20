@@ -4,6 +4,15 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 # Update Daily
 
 ## modified by Daisy
+### 2020.06.20  18：57
+1. 完成了已存在的人脸id与照片的关联
+2. 下一步：写照片墙中的照片点击弹出照片详情，添加照片标签
+
+1. Completed the existing face ID and photo association
+2. Next step: Write the photo in the photo wall. Click on the popup photo details and add the photo tag
+
+
+## modified by Daisy
 ### 2020.06.20 16：58
 1. 完成了人脸id关联到相应的图片，但是是对于新添加的人脸来说的，如果是已存在的人脸，则需要用faceToken查询人脸的id，思路已有了。
 2. 但是我今天发现了一个bug，对于含有多张人物的照片来说，客户端只显示一张人脸。
@@ -12,6 +21,7 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 1. Completed the face ID association with the corresponding picture, but for the newly added face, if it is an existing face, it needs to use faceToken to query the face ID.Howerver,the idea has been developed.
 2. But I found a bug today. For photos with multiple people, the client only shows one face.
 3. Next step: First realize the existing face association
+
 
 ## modified by Daisy
 ### 2020.06.19 21：05

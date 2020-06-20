@@ -268,27 +268,29 @@ PhotoWall.prototype.getFaceInfo = function(file){
             var json = typeof res=='string'?JSON.parse(res):res;
             var face_num = json.face_num;
             var faces = json.faces;
-            me.faces = []
+            me.faces = [];
+            me.face_tokens=[];
             if(face_num>0){
+                me.searchRes = [];
                 for(var i = 0;i<face_num;i++){
 
                     //从FaceSet集合中搜索与检测出的人脸最相似的照片，若相似度大于75，我们认为这是同一个人
-                    me.searchRes = [];
+
                     //这里我采用的同步方式，不知道后面后不会造成堵塞，可能会的吧
                     me.searchFace(faces[i].face_token);
                     if(me.searchRes.length>0){
                         console.log("faceset中已有此人物")
+                        //me.face_tokens.push(faces[i].face_token);
                     }else{
                         me.addFace_tokenToFaceSet(faces[i].face_token);
                         me.faces.push(faces[i]);
                     }
                 }
-                if(me.faces.length>0){
+                console.log(me.searchRes)
+                if(me.faces.length>0||me.searchRes.length>0){
                     var data = {};
                     data["faces"] = me.faces;
-
-                    me.uploadFaceInfo(data,file);
-                    console.log(data)
+                    me.uploadFaceInfo(data,file,me.searchRes);
                 }
             }else{
                 console.log("no faceInfo")
@@ -374,41 +376,49 @@ PhotoWall.prototype.addFace_tokenToFaceSet = function(face_token){
  * 将检测到的人脸信息传到后台
  * @param faces face++ 人脸检测返回的人脸信息:face_token和face_rectangle(top,left,height,width)
  */
-PhotoWall.prototype.uploadFaceInfo = function(faces,file){
+PhotoWall.prototype.uploadFaceInfo = function(faces,file,face_tokens){
     var me = this;
-    console.log(faces)
+    //console.log("faces IN ");
+    console.log(faces.faces.length);
+    if(faces.faces.length==0){
 
-    $.ajax({
-        type:'POST',
-        url:"/uploadFaceInfoServlet",
-        dateType:'json',
-        data:
-            {
-                "faces":JSON.stringify(faces),
-                "file":file.name
+        me.uploadPhotoFaceId(file,"",face_tokens)
+    }else{
+        $.ajax({
+            type:'POST',
+            url:"/uploadFaceInfoServlet",
+            dateType:'json',
+            data:
+                {
+                    "faces":JSON.stringify(faces),
+                    "file":file.name
+                },
+            success:function (res) {
+                var json = typeof res=='string'?JSON.parse(res):res;
+
+                var dir = "../data/faces/";
+                var facesData = json.facesName;
+                var facesPath = json.facesPath;
+                console.log(facesPath)
+                me.uploadPhotoFaceId(file,facesPath,face_tokens)
+                for(var i = 0 ;i<facesData.length;i++){
+                    me.showFaceModal(facesData[i],facesPath[i]);
+                }
+
             },
-        success:function (res) {
-            var json = typeof res=='string'?JSON.parse(res):res;
-
-            var dir = "../data/faces/";
-            var facesData = json.facesName;
-            var facesPath = json.facesPath;
-            console.log(facesPath)
-            me.uploadPhotoFaceId(file,facesPath)
-            for(var i = 0 ;i<facesData.length;i++){
-                me.showFaceModal(facesData[i],facesPath[i]);
+            error:function (err) {
             }
+        });
+    }
 
-        },
-        error:function (err) {
-        }
-    });
+
 };
 
-PhotoWall.prototype.uploadPhotoFaceId = function(file,facesPath){
+PhotoWall.prototype.uploadPhotoFaceId = function(file,facesPath,face_tokens){
     var me = this;
     var photoPath = "../data/photos/"+file.name;
-    console.log(facesPath.length)
+    var facesPath = typeof facesPath =='undefined'? "":facesPath;
+    var faceTokens = typeof face_tokens=='undefined'?"":face_tokens;
     // var faces = {};
     // faces["facesPath"] = facesPath;
     $.ajax({
@@ -417,7 +427,8 @@ PhotoWall.prototype.uploadPhotoFaceId = function(file,facesPath){
         data:{
             "type":"faceId",
             "photoPath": photoPath,
-            "facesPath":facesPath.toString()
+            "facesPath":facesPath.toString(),
+            "faceTokens":faceTokens.toString()
         },
         success:function (res) {
             console.log(res)

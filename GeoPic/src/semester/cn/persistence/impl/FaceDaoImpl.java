@@ -91,7 +91,18 @@ public class FaceDaoImpl implements FaceDao {
         Connection conn;
         try{
             conn = UtilDao.getConnection();
-            String getFaceIdSql = "select face_id from faceinfo where facetoken = '"+faceInfo.getFaceTokens()+"'limit 1";
+            ArrayList<String> faceTokensArr = faceInfo.getFaceTokens();
+            String faceTokens = "";
+            for(int i = 0;i<faceTokensArr.size();i++){
+                faceTokens +=faceTokensArr.get(i);
+                if(i<faceTokensArr.size()-1)
+                {
+                    faceTokens+=",";
+                }
+
+            }
+            System.out.println(faceTokens);
+            String getFaceIdSql = "select face_id from faceinfo where facetoken = '{"+faceTokens+"}'limit 1";
             PreparedStatement preparedStatement = conn.prepareStatement(getFaceIdSql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
