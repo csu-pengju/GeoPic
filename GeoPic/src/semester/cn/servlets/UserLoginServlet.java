@@ -17,6 +17,8 @@ public class UserLoginServlet extends HttpServlet {
     private static String photoWall= "/static/html/photoWall.html";
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setHeader("content-type", "text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String msg = null;
         String username = request.getParameter("username");
         String password = request.getParameter("password");

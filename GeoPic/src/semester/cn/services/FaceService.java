@@ -18,4 +18,17 @@ public class FaceService {
         faceDao = new FaceDaoImpl();
         return faceDao.updateFaceLabelToDB(faceInfo);
     }
+
+    //根据人物token获取人物的id
+    public int getFaceIdAccordingFaceToken(FaceInfo faceInfo){
+        faceDao = new FaceDaoImpl();
+        return faceDao.getFaceIdAccordingFaceToken(faceInfo);
+    }
+
+    //根据人物path获取人物的id
+    public  int getFaceIdAccordingFacePath(FaceInfo faceInfo){
+        faceDao = new FaceDaoImpl();
+        return faceDao.getFaceIdAccordingFacePath(faceInfo);
+    }
+
 }

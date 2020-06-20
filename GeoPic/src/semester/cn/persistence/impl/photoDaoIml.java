@@ -158,5 +158,80 @@ public class photoDaoIml  implements PhotoDao {
         return false;
     }
 
+    @Override
+    public int getPhotoIdAcoordintPhotoPath(PhotoInfo photoInfo) {
+        int photo_id = 0;
+        Connection conn = null;
+        try{
+            System.out.println("photo Pathinget "+photoInfo.getPhotoId());
+            String getPhotoIdAccordingPhotoPathSql = "select photo_id from photoinfo " +
+                    "where photopath = '"+photoInfo.getPhotoPath()+"'";
+            conn = UtilDao.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(getPhotoIdAccordingPhotoPathSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                photo_id = resultSet.getInt("photo_id");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return photo_id;
+    }
+
+    @Override
+    public boolean insertPhotoFaceId(PhotoInfo photoInfo) {
+        boolean insertPhotoFaceIdRes = false;
+        Connection conn= null;
+        ArrayList<Integer> arrayList = photoInfo.getFacesId();
+        String facesId = "";
+        for(int i = 0;i<arrayList.size();i++){
+            facesId +=arrayList.get(i);
+            if(i<arrayList.size()-1)
+            {
+                facesId+=",";
+            }
+        }
+        try{
+            conn = UtilDao.getConnection();
+            String insertPhotoFaceIdSql = "update photoinfo set facesid = '{"+facesId+"}' where photo_id = "+photoInfo.getPhotoId();
+            PreparedStatement preparedStatement = conn.prepareStatement(insertPhotoFaceIdSql);
+            int num = preparedStatement.executeUpdate();
+            System.out.println("人脸id"+num);
+            while (num>0){
+                insertPhotoFaceIdRes = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return insertPhotoFaceIdRes;
+    }
+
+    @Override
+    public boolean insertPhotoLabel(PhotoInfo photoInfo) {
+        boolean insertPhotoLabelRes = false;
+        Connection conn = null;
+        ArrayList<String> arrayList = photoInfo.getPhotoLabels();
+        String photoLabels = "";
+        for(int i = 0;i<arrayList.size();i++){
+            photoLabels +=arrayList.get(i);
+            if(i<arrayList.size()-1)
+            {
+                photoLabels+=",";
+            }
+        }
+        try{
+            conn = UtilDao.getConnection();
+            String insertPhotoFaceIdSql = "update photoinfo set  photolabels= '{"+photoLabels+"}' where photo_id = "+photoInfo.getPhotoId();
+            PreparedStatement preparedStatement = conn.prepareStatement(insertPhotoFaceIdSql);
+            int num = preparedStatement.executeUpdate();
+            while (num>0){
+                insertPhotoLabelRes = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return insertPhotoLabelRes;
+    }
+
 
 }

@@ -50,7 +50,7 @@ public class getPhotoGPSServlet extends HttpServlet {
         }
         data.put("GPSAndPath",jsonArray);
         res.put("data",data);
-        System.out.println(res.toString());
+        //System.out.println(res.toString());
         out.write(data.toString());
 
     }

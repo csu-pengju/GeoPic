@@ -7,6 +7,7 @@ import semester.cn.persistence.UtilDao;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class FaceDaoImpl implements FaceDao {
@@ -26,10 +27,7 @@ public class FaceDaoImpl implements FaceDao {
                 }
 
             }
-            String insertFaceInfoSql = "";{
-
-            }
-            insertFaceInfoSql = "insert into faceinfo " +
+            String insertFaceInfoSql = "insert into faceinfo " +
                     " (facetoken,facepath) " +
                     " values ('{"+facetokens+"}',?)";
             connection = UtilDao.getConnection();
@@ -67,5 +65,41 @@ public class FaceDaoImpl implements FaceDao {
             e.printStackTrace();
         }
         return updateFaceLabelResult;
+    }
+
+    @Override
+    public int getFaceIdAccordingFacePath(FaceInfo faceInfo) {
+        int id = 0;
+        Connection conn;
+        try{
+            conn = UtilDao.getConnection();
+            String getFaceIdSql = "select face_id from faceinfo where facepath = '"+faceInfo.getFacePath()+"'limit 1";
+            PreparedStatement preparedStatement = conn.prepareStatement(getFaceIdSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                id = resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    @Override
+    public int getFaceIdAccordingFaceToken(FaceInfo faceInfo) {
+        int id = 0;
+        Connection conn;
+        try{
+            conn = UtilDao.getConnection();
+            String getFaceIdSql = "select face_id from faceinfo where facetoken = '"+faceInfo.getFaceTokens()+"'limit 1";
+            PreparedStatement preparedStatement = conn.prepareStatement(getFaceIdSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                id = resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 }

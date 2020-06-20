@@ -1,6 +1,5 @@
 package semester.cn.persistence;
 
-import com.sun.org.apache.xerces.internal.xs.StringList;
 import semester.cn.domain.PhotoInfo;
 
 import java.util.ArrayList;
@@ -15,4 +14,7 @@ public interface PhotoDao {
     public ArrayList<String> getPlaceQueryPhotoPath(String geo,String address);
     public ArrayList<String> getAllPhotoPath();
     public boolean getThumbs();
+    public int getPhotoIdAcoordintPhotoPath(PhotoInfo photoInfo);
+    public boolean insertPhotoFaceId(PhotoInfo photoInfo);
+    public boolean insertPhotoLabel(PhotoInfo photoInfo);
 }

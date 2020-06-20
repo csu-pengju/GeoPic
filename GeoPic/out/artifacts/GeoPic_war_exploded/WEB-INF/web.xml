@@ -90,4 +90,13 @@
         <url-pattern>/upLoadFaceLabelServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>uploadPhotoLabelAndFaceIdServlet</servlet-name>
+        <servlet-class>semester.cn.servlets.uploadPhotoLabelAndFaceIdServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadPhotoLabelAndFaceIdServlet</servlet-name>
+        <url-pattern>/uploadPhotoLabelAndFaceIdServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>

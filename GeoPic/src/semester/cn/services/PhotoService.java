@@ -16,7 +16,6 @@ public class PhotoService {
      * @return 返回插入结果，true or false
      */
     public boolean insertPhotoInfo(PhotoInfo photoInfo){
-        System.out.println("photoservie"+photoInfo);
         photoDao = new photoDaoIml();
         return  photoDao.insertPhotoInfoToDB(photoInfo);
     }
@@ -55,6 +54,7 @@ public class PhotoService {
     /**
      * 用于获取初始化界面的照片墙显示的照片路径
      * @return 返回当前数据库中存储的所有照片的相对路径
+     *
      */
     public ArrayList<String> getAllPhotoPath(){
         photoDao  = new photoDaoIml();
@@ -64,5 +64,19 @@ public class PhotoService {
     public  boolean getThumbs(){
         photoDao = new photoDaoIml();
         return photoDao.getThumbs();
+    }
+
+    public  int getPhotoIdAccordingPhotoPath(PhotoInfo photoInfo){
+        photoDao = new photoDaoIml();
+        return photoDao.getPhotoIdAcoordintPhotoPath(photoInfo);
+    }
+    public boolean insertPhotoLabel(PhotoInfo photoInfo){
+        photoDao = new photoDaoIml();
+        return photoDao.insertPhotoLabel(photoInfo);
+    }
+
+    public boolean insertPhotoFacesId(PhotoInfo photoInfo){
+        photoDao = new photoDaoIml();
+        return photoDao.insertPhotoFaceId(photoInfo);
     }
 }

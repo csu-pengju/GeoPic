@@ -112,16 +112,7 @@ PhotoWall.prototype.uploadPhotos = function () {
     var me = this;
     var files = document.getElementById("input_upload_driver").files;
     me.passPhotoData();
-    for(var i = 0;i<files.length;i++){
-        var file = files[i];
-        me.getExifData(file);
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload=function (ev) {
-            // console.log(this.result)
-            me.CreateImage(this.result);
-        }
-    }
+
 };
 
 /**
@@ -180,18 +171,17 @@ PhotoWall.prototype.removeFaceToken = function(){
  */
 PhotoWall.prototype.passPhotoData = function(){
     var me = this;
+    me.isExist = false;
     // me.getFaceRect();
     var files = document.getElementById("input_upload_driver").files;
-    console.log("我看看不弄了几次啊");
+
     for(var i = 0;i<files.length;i++){
         var file = files[i];
-        var reader = new FileReader();
         var r = new FileReader();
         r.readAsDataURL(file);
         r.onloadend= function (ev) {
             photoData = this.result;
-            // console.log(photoData);
-            console.log(file.name);
+
             var photoDat = photoData.replace("data:image/jpeg;base64",file.name);
             photoDat = photoDat.replace("data:image/png;base64",file.name);
             photoDat = photoDat.replace("data:image/gif;base64",file.name);
@@ -200,29 +190,65 @@ PhotoWall.prototype.passPhotoData = function(){
                 type:"POST",
                 url:"/getPhotoDataServlet",
                 data:photoDat,
+                async:false,
                 contentType : false,
                 processData : false,  //必须false才会避开jQuery对 formdata 的默认处理
                 cache : false,
-                async:true,
                 success:function (res) {
-                    console.log("上传完成");
-                    me.getFaceInfo(photoDat,file);
+                    var json = typeof res=='string'?JSON.parse(res):res;
+                    //如果数据库中没有这张照片，那么将这张照片上传到数据库，同时检测人脸信息
+                    if(json.success){
+                        console.log(json.success)
+
+                        me.uploadPhotosToDB(file);
+                        me.isExist = true;
+                    }else{
+                        console.log(json.message);
+                        console.log(json.success)
+                    }
+                },
+                error:function (err) {
+                    console.log(err)
                 }
             });
 
         }
-
     }
 };
+/**
+ * 将照片上传至数据库
+ * @param file  获取input中的file
+ */
+PhotoWall.prototype.uploadPhotosToDB = function(file){
+    var me = this;
+
+    me.getExifData(file);
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload=function (ev) {
+        // console.log(this.result)
+        me.CreateImage(this.result);
+    }
+    // for(var i = 0;i<files.length;i++){
+    //     var file = files[i];
+    //     me.getExifData(file);
+    //     var reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload=function (ev) {
+    //         // console.log(this.result)
+    //         me.CreateImage(this.result);
+    //     }
+    // }
+}
 /**
  * 将上传的照片上传到face++ API to detect faces in photo
  * @param photoData emmm,没用,要删掉的
  * @param file  input获取的file
  */
-PhotoWall.prototype.getFaceInfo = function(photoData,file){
+PhotoWall.prototype.getFaceInfo = function(file){
     var me = this;
     me.faces = [];
-    var ph = photoData.replace(file.name+",","");
+    //var ph = photoData.replace(file.name+",","");
     let data = new FormData();
     data.append('api_key', "ms3MvC2UjwJBlSs5wNTVj-3SXPPAURq3");
     data.append('api_secret', "P6wgCmBYbeFGRG76cwTOTe6k2V5jS1vY");
@@ -248,11 +274,10 @@ PhotoWall.prototype.getFaceInfo = function(photoData,file){
 
                     //从FaceSet集合中搜索与检测出的人脸最相似的照片，若相似度大于75，我们认为这是同一个人
                     me.searchRes = [];
-                    //这里我采用的同步方式，不知道后面后不会造成堵塞
+                    //这里我采用的同步方式，不知道后面后不会造成堵塞，可能会的吧
                     me.searchFace(faces[i].face_token);
-
                     if(me.searchRes.length>0){
-                        console.log("数据库中已有此人物")
+                        console.log("faceset中已有此人物")
                     }else{
                         me.addFace_tokenToFaceSet(faces[i].face_token);
                         me.faces.push(faces[i]);
@@ -368,8 +393,9 @@ PhotoWall.prototype.uploadFaceInfo = function(faces,file){
             var dir = "../data/faces/";
             var facesData = json.facesName;
             var facesPath = json.facesPath;
+            console.log(facesPath)
+            me.uploadPhotoFaceId(file,facesPath)
             for(var i = 0 ;i<facesData.length;i++){
-
                 me.showFaceModal(facesData[i],facesPath[i]);
             }
 
@@ -377,6 +403,31 @@ PhotoWall.prototype.uploadFaceInfo = function(faces,file){
         error:function (err) {
         }
     });
+};
+
+PhotoWall.prototype.uploadPhotoFaceId = function(file,facesPath){
+    var me = this;
+    var photoPath = "../data/photos/"+file.name;
+    console.log(facesPath.length)
+    // var faces = {};
+    // faces["facesPath"] = facesPath;
+    $.ajax({
+        url:"/uploadPhotoLabelAndFaceIdServlet",
+        type:"POST",
+        data:{
+            "type":"faceId",
+            "photoPath": photoPath,
+            "facesPath":facesPath.toString()
+        },
+        success:function (res) {
+            console.log(res)
+        },
+        error:function (err) {
+            console.log(err)
+        }
+
+    });
+
 };
 
 PhotoWall.prototype.showFaceModal=function(facesData,facesPath){
@@ -391,7 +442,7 @@ PhotoWall.prototype.showFaceModal=function(facesData,facesPath){
         console.log("wool看")
         // alert("请输入人物标签");
     });
-    console.log(facesPath+"dada死了死了")
+
     $("#sureInputFaceLabel").off("click").on('click',function () {
        me.handelFaceLabel(facesPath);
 
@@ -441,7 +492,7 @@ PhotoWall.prototype.getExifData= function(file){
         var exifData = EXIF.pretty(this);
         console.log(exifData);
         if(exifData){
-            // console.log(exifData);
+
             var lat = EXIF.getTag(this, "GPSLatitude");
             var lon = EXIF.getTag(this, "GPSLongitude");
             takenTime = EXIF.getTag(this,"DateTime");
@@ -491,7 +542,7 @@ PhotoWall.prototype.getExifData= function(file){
  * 将解析的图片数据传给后台：包括图片的文件名、图片的拍摄地点、拍摄时间、GPS坐标
  */
 PhotoWall.prototype.passPhotoInfo = function(file){
-
+    var me = this;
     $.ajax({
         type:"POST",
         url:"/getThumbsServlet",
@@ -505,6 +556,7 @@ PhotoWall.prototype.passPhotoInfo = function(file){
         },
         async:true,
         success:function (res) {
+            me.getFaceInfo(file);
             console.log(res);
         }
     });

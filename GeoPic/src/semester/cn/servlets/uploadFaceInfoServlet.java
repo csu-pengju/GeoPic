@@ -62,7 +62,7 @@ public class uploadFaceInfoServlet extends HttpServlet {
                 String faceBase64 = getImgBase64(faceDirPath);
                 facesName.add(faceBase64);
                 facesPath.add(faceStorePath);
-                System.out.println(faceBase64);
+                //System.out.println(faceBase64);
             }
         }
         if(insertResult){

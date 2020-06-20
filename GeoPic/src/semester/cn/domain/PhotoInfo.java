@@ -15,11 +15,20 @@ public class PhotoInfo {
     private String photoPath;//照片的本地存储路径
     private String geo;//照片拍摄的GPS坐标
     private String thumbsPath;
+    private  int photoId;
 
     private Map<String, List<String>> photoTimeAndPath = new HashMap<String,List<String>>();
 //    private List<String> photoPath
 
     public PhotoInfo(){
+    }
+
+    public int getPhotoId() {
+        return photoId;
+    }
+
+    public void setPhotoId(int photoId) {
+        this.photoId = photoId;
     }
 
     public ArrayList<Integer> getFacesId() {
