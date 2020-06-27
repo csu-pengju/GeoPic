@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">
     <title>PhotoWall</title>
     <link rel="stylesheet" href="../css/photoWall.css">
-    <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/faceModal.css">
+    <link rel="stylesheet" href="../css/photoModal.css">
 
     <script type="text/javascript" src="../../support/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../js/photoWall.js"></script>
+    <script type="text/javascript" src="../js/photoDetail.js"></script>
     <script src="../../support/exif.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../support/infoTip/css/bootstrap.css">
+    <link rel="stylesheet" href="../../support/infoTip/css/message.css">
+    <script src="../../support/infoTip/js/message.js"></script>
 
     <script>
 
@@ -84,6 +89,45 @@
                             <button class="cancel" id="cancelInputFaceLabel" onclick="cancel()">取消</button>
                             <button class="sure" id="sureInputFaceLabel">提交</button>
                         </div>
+                    </div>
+                </section>
+                <!-- 照片详情模态框-->
+                <section class="photoDetailModal">
+                    <div class=" photoDetailModal-info center-self-xy">
+                        <div class="photoDetailModal-title">
+                            <span class="logo-GeoPic">GeoPic</span>
+                            <span class="photoDetailModal-detail">照片详情</span>
+                            <img src="../images/cancel.png" class="cancelPhotoLabelEdit" >
+                        </div>
+                        <div class="photoDetailModal-content">
+                            <div class="photoDetailModal-content-left">
+                                <div class="photoDetailModal-content-originPhoto-box">
+                                    <img class="photoDetailModal-content-originPhoto" src="../data/photos/1.jpg">
+                                </div>
+                                <div class="photoDetailModal-content-left-photoInfo-box">
+                                    <span class="photoInfo-takenTime">拍摄时间：</span>
+                                    <span class="photoInfo-takenPlace">拍摄地点：</span>
+                                </div>
+
+                            </div>
+                            <div class="photoDetailModal-content-right">
+                                <div class="photoDetailModal-content-right-personIncluded-title">包含的人物(最多显示4张）</div>
+                                <div class="faces">
+                                    <ul class="faces-list">
+                                    </ul>
+
+                                </div>
+                                <div class="photoLabel-box">
+                                    <span>照片标签：</span>
+                                    <input type="text" class="inputPhotoLabel" readonly="readonly" value="">
+                                </div>
+                                <div class="btnPhotoLabel-box">
+                                    <button class="btnModifyPhotoLabel">编辑标签</button>
+                                    <button class="sureModifyOp">确认修改</button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </section>
 

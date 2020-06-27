@@ -28,18 +28,35 @@ public class uploadPhotoLabelAndFaceIdServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         String type = request.getParameter("type");
-        System.out.println(type);
+
+        JSONObject resObj = new JSONObject();
         switch (type){
             case"photoLabel":
-                updatePhotoLabel(request);
+                boolean updatePhotoLabelres = updatePhotoLabel(request);
+                if(updatePhotoLabelres){
+                    resObj.put("message","update PhotoLabel successfully");
+                    resObj.put("success",true);
+
+                }else{
+                    resObj.put("message","fail to update PhotoLabel");
+                    resObj.put("success",false);
+                }
                 break;
             case "faceId":
                 boolean res = updatePhotoFaceId(request);
-                System.out.println("人脸id成功了吗"+res);
+                if(res){
+                    resObj.put("message","update FaceId successfully");
+                    resObj.put("success",true);
+                }else {
+                    resObj.put("message","fail to update FaceId ");
+                    resObj.put("success",false);
+                }
+
                 break;
             default:
                 break;
         }
+        out.write(resObj.toString());
     }
 
     @Override
@@ -48,8 +65,37 @@ public class uploadPhotoLabelAndFaceIdServlet extends HttpServlet {
     }
 
     protected boolean updatePhotoLabel(HttpServletRequest request){
+        boolean updateRes = false;
+        String photoLabels = request.getParameter("photoLabels");
+        String photoPath = request.getParameter("photoPath");
+        ArrayList<String>photolabels = new ArrayList<>();
+        if(photoLabels!=""){
+            photolabels = getFormattedPhotoLabels(photoLabels);
+            photoInfo = new PhotoInfo();
+            photoInfo.setPhotoLabels(photolabels);
+            photoInfo.setPhotoPath(photoPath);
+            photoService = new PhotoService();
+            updateRes = photoService.insertPhotoLabel(photoInfo);
 
-        return  false;
+        }else{
+            updateRes =false;
+        }
+
+        return  updateRes;
+    }
+
+    protected ArrayList<String>getFormattedPhotoLabels(String photoLabels){
+        ArrayList<String>photolabels = new ArrayList<>();
+        System.out.println("我在getformattd"+photoLabels);
+        if(photoLabels.contains(",")){
+            String []photoLabel = photoLabels.split(",");
+            for(int i = 0;i<photoLabel.length;i++){
+                photolabels.add(photoLabel[i]);
+            }
+        }else {
+            photolabels.add(photoLabels);
+        }
+        return photolabels;
     }
 
     protected boolean updatePhotoFaceId(HttpServletRequest request){

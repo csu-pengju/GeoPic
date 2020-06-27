@@ -4,6 +4,8 @@ import semester.cn.domain.FaceInfo;
 import semester.cn.persistence.FaceDao;
 import semester.cn.persistence.impl.FaceDaoImpl;
 
+import java.util.HashMap;
+
 public class FaceService {
     public FaceDao faceDao;
 
@@ -29,6 +31,12 @@ public class FaceService {
     public  int getFaceIdAccordingFacePath(FaceInfo faceInfo){
         faceDao = new FaceDaoImpl();
         return faceDao.getFaceIdAccordingFacePath(faceInfo);
+    }
+
+    //根据face_id获取facepath
+    public HashMap<String,String > getFacePathAndLabel(int faceId){
+        faceDao = new FaceDaoImpl();
+        return faceDao.getFacePathAndLabel(faceId);
     }
 
 }

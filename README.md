@@ -4,6 +4,16 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 # Update Daily
 
 ## modified by Daisy
+### 2020.06.27 22:20
+1. 完成照片详情模态框的相关内容，可以实现通过点击照片墙的照片查看照片详情，并且可以编辑更新照片标签
+2. 下一步:写照片的语义查询
+3. 下一步:照片详情更新成功与失败的信息提示框
+
+1. Complete the relevant contents of the photo details modal box. Click the photo on the photo wall to view the photo details, and edit and update the photo label
+2. Next step: Write semantic query for photos
+3. Next step: Photo details update success and failure information prompt box
+
+## modified by Daisy
 ### 2020.06.20  18：57
 1. 完成了已存在的人脸id与照片的关联
 2. 下一步：写照片墙中的照片点击弹出照片详情，添加照片标签

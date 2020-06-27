@@ -39,11 +39,11 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
-        <option value="JavaScript File" />
         <option value="HTML File" />
         <option value="Interface" />
         <option value="Class" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -57,7 +57,6 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="ProjectId" id="1cdDChRuSbFSBdY5FYu3WYYM7Bs" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
@@ -66,7 +65,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/web/WEB-INF/lib" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../WebGIS6-1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/support" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -76,11 +75,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\support\opencv" />
       <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\support" />
+      <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\support\bootstrap-4.1.3-dist\js" />
+      <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\support\opencv" />
       <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\static\data\photos" />
       <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\data\photos" />
-      <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\WEB-INF\lib" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -195,6 +194,7 @@
       <workItem from="1592146154678" duration="612000" />
       <workItem from="1592492118458" duration="54196000" />
       <workItem from="1592650334478" duration="152000" />
+      <workItem from="1593046571523" duration="45185000" />
     </task>
     <servers />
   </component>

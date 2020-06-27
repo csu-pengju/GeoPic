@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FaceDaoImpl implements FaceDao {
 
@@ -38,6 +39,7 @@ public class FaceDaoImpl implements FaceDao {
             if(num>0){
                 insertResult = true;
             }
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,7 +62,7 @@ public class FaceDaoImpl implements FaceDao {
             if(result>0){
                 updateFaceLabelResult = true;
             }
-
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,6 +81,7 @@ public class FaceDaoImpl implements FaceDao {
             while(resultSet.next()){
                 id = resultSet.getInt(1);
             }
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,9 +111,35 @@ public class FaceDaoImpl implements FaceDao {
             while(resultSet.next()){
                 id = resultSet.getInt(1);
             }
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return id;
+    }
+
+    @Override
+    public HashMap<String,String > getFacePathAndLabel(int faceId) {
+        String facePath = "";
+        String faceLabel = "";
+        HashMap<String,String>facePathAndLabel = new HashMap<>();
+        Connection conn;
+        try{
+            String getFacePathSql = "select facepath,facelabel from faceinfo " +
+                    "where face_id = "+faceId +" limit 1";
+            conn = UtilDao.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(getFacePathSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                facePath = resultSet.getString("facepath");
+                faceLabel = resultSet.getString("facelabel");
+                facePathAndLabel.put(facePath,faceLabel);
+
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return facePathAndLabel;
     }
 }

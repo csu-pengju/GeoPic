@@ -277,7 +277,7 @@ PhotoWall.prototype.getFaceInfo = function(file){
                     //从FaceSet集合中搜索与检测出的人脸最相似的照片，若相似度大于75，我们认为这是同一个人
 
                     //这里我采用的同步方式，不知道后面后不会造成堵塞，可能会的吧
-                    me.searchFace(faces[i].face_token);
+                    //me.searchFace(faces[i].face_token);
                     if(me.searchRes.length>0){
                         console.log("faceset中已有此人物")
                         //me.face_tokens.push(faces[i].face_token);
@@ -400,9 +400,18 @@ PhotoWall.prototype.uploadFaceInfo = function(faces,file,face_tokens){
                 var facesData = json.facesName;
                 var facesPath = json.facesPath;
                 console.log(facesPath)
-                me.uploadPhotoFaceId(file,facesPath,face_tokens)
+                me.uploadPhotoFaceId(file,facesPath,face_tokens);
+
                 for(var i = 0 ;i<facesData.length;i++){
                     me.showFaceModal(facesData[i],facesPath[i]);
+                    // var timer = setInterval(() => {
+                    //     console.log(facesPath[i])
+                    //     me.inputFacelabel(facesPath[i]);
+                    //     console.log("he")
+                    //     if (me.clicked) {
+                    //         clearInterval(timer);
+                    //     }
+                    // }, 100);
                 }
 
             },
@@ -445,19 +454,37 @@ PhotoWall.prototype.showFaceModal=function(facesData,facesPath){
     var me = this;
     //这样直接设置图片路径有问题，因为浏览器对于静态资源的加载不是同步的，所以我们直接传入人脸的base64数据，这个数据由后台返回
     var base64 = "data:image/jpeg;base64,"+facesData;
+    console.log("你执行了几次啊s"+facesPath)
+
     $("#faceImg").attr("src",base64);
     $(".modal").css({
         display:"block"
     });
+    me.clicked = false;
     $("#cancelInputFaceLabel").click(function () {
-        console.log("wool看")
-        // alert("请输入人物标签");
+        me.clicked = true;
     });
 
-    $("#sureInputFaceLabel").off("click").on('click',function () {
-       me.handelFaceLabel(facesPath);
-
+    $("#sureInputFaceLabel").off("click").on('click', function () {
+        me.handelFaceLabel(facesPath);
     });
+    // setTimeout(function () {
+    //         $("#cancelInputFaceLabel").click(function () {
+    //             me.clicked = true;
+    //         });
+    //
+    //         $("#sureInputFaceLabel").off("click").on('click', function () {
+    //             me.handelFaceLabel(facesPath);
+    //         });
+    //     },10000);
+
+
+};
+
+PhotoWall.prototype.inputFacelabel = function(facesPath){
+    var me = this;
+
+
 };
 
 PhotoWall.prototype.handelFaceLabel= function(facesPath){
@@ -472,6 +499,7 @@ PhotoWall.prototype.handelFaceLabel= function(facesPath){
             "faceLabel":faceLabel,
             "facePath":facesPath
         },
+        async:false,
         success:function (res) {
             console.log(res);
             $(".modal").css({
@@ -479,6 +507,7 @@ PhotoWall.prototype.handelFaceLabel= function(facesPath){
             });
             $("#faceImg").attr("src","");
             $("#facelabelText").val("");
+            me.clicked = true;
         },
         error:function (err) {
             console.log(err)
@@ -597,14 +626,23 @@ PhotoWall.prototype.CreateImage = function (res) {
         float:'left',
 
     });
-    me.myA = $('<a href="'+res+'"></a>').appendTo(me.myli);
+    me.myA = $('<a onclick="PhotoWall.prototype.showPhotoDetail(this)"></a>').appendTo(me.myli);
 
     me.myImg = $('<img src="'+res+'"/>').appendTo(me.myA).css({
         width:180+"px",
         height:180+"px"
     }).addClass("myImg");
-    // console.log(me.myImg)
+
 };
+
+PhotoWall.prototype.showPhotoDetail = function (res) {
+    var a =$(res)[0];
+    var img = $(a).children();
+    var imgSrc = $(img[0]).attr("src");
+    var photoDeail = new PhotoDetail(imgSrc);
+};
+
+
 
 
 

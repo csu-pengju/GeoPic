@@ -50,6 +50,7 @@ public class UserDaoImpl implements UserDao {
                 if(num>0){
                     resisterResult = true;
                 }
+                connection.close();
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }

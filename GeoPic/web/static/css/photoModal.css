@@ -1,0 +1,140 @@
+.photoDetailModal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0px;
+    background-color: rgba(0,0,0,.5);
+    z-index: 9999;
+    display: none;
+}
+.photoDetailModal-info{
+    width: 60%;
+    height: 600px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding:10px;
+    box-sizing:border-box;
+}
+.photoDetailModal-title{
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 10px;
+}
+.cancelPhotoLabelEdit{
+    width: 32px;
+    height: 32px;
+    float: right;
+}
+.logo-GeoPic{
+    position: absolute;
+    float: left;;
+    left: 10%;
+    /*width: 25%;*/
+    height: 60px;
+    width: 85px;
+    line-height: 60px;
+    color: white;
+    font-family: "Bodoni MT";
+    font-size: 25px;
+    font-style: italic;
+    border-radius: 50%;
+    background-color: #0066cc;
+}
+.photoDetailModal-detail{
+    /*float: left;*/
+    width: 50%;
+    line-height: 60px;
+    height: 60px;
+    font-weight: bold;
+    font-size: 24px;
+    letter-spacing: 3px;
+}
+.photoDetailModal-content{
+    width: 100%;
+    position: relative;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+.photoDetailModal-content-left,.photoDetailModal-content-right{
+    width: 49.5%;
+    /*border: 1px solid red;*/
+    height:480px;
+    float: left;
+}
+.photoDetailModal-content-left{
+    border-right: 1.5px dotted gray;
+    border-color: #0066cc;
+}
+.photoDetailModal-content-originPhoto-box{
+    margin-top: 10px;
+    /*border: 1px solid gray;*/
+}
+.photoDetailModal-content-originPhoto{
+    border: 1px solid gray;
+    width: 80%;
+    height: 360px;
+}
+.photoDetailModal-content-left-photoInfo-box{
+    margin-top: 25px;
+}
+.photoInfo-takenTime,.photoInfo-takenPlace{
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    left: 40px;
+
+}
+.photoInfo-takenPlace{
+    margin-top: 35px;
+}
+.photoDetailModal-content-right-personIncluded-title{
+    /*margin-top: 10px;*/
+    font-size: 18px;
+    font-weight: bold;
+}
+.faces{
+    width: 100%;
+    height: 330px;
+    margin: 0 auto;
+    padding-top: 25px;
+}
+.faces-list{
+    height: 335px;
+}
+
+.photoLabel-box{
+    margin-top: 15px;
+    width: 100%;
+    height: 50px;
+}
+.photoLabel-box span{
+    width: 25%;
+    font-size: 16px;
+    font-weight: bold;
+}
+.inputPhotoLabel{
+    padding-left: 20px;
+    height: 30px;
+    width: 65%;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+.btnPhotoLabel-box button{
+    width: 30%;
+    height: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #0066cc;
+    border-radius: 10px;
+    letter-spacing: 3px;
+}
+.btnModifyPhotoLabel{
+    margin-right: 20px;
+}

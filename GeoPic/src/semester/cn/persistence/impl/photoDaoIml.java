@@ -60,6 +60,7 @@ public class photoDaoIml  implements PhotoDao {
             if(num>0){
                  insertResult= true;
             }
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,6 +82,7 @@ public class photoDaoIml  implements PhotoDao {
 
                 photoGPSAndPath.put(Path, GPS);
             }
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,6 +103,7 @@ public class photoDaoIml  implements PhotoDao {
                 String path = resultSet.getString(1);
                 timeQueryRes.add(path);
             }
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -125,6 +128,7 @@ public class photoDaoIml  implements PhotoDao {
                 String path = resultSet.getString(1);
                 placeQueryRes.add(path);
             }
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,7 +147,7 @@ public class photoDaoIml  implements PhotoDao {
                 String path = resultSet.getString(1);
                 res.add(path);
             }
-
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -172,6 +176,7 @@ public class photoDaoIml  implements PhotoDao {
             while (resultSet.next()){
                 photo_id = resultSet.getInt("photo_id");
             }
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -200,6 +205,7 @@ public class photoDaoIml  implements PhotoDao {
             while (num>0){
                 insertPhotoFaceIdRes = true;
             }
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -213,24 +219,82 @@ public class photoDaoIml  implements PhotoDao {
         ArrayList<String> arrayList = photoInfo.getPhotoLabels();
         String photoLabels = "";
         for(int i = 0;i<arrayList.size();i++){
-            photoLabels +=arrayList.get(i);
+            photoLabels +='"'+arrayList.get(i)+'"';
             if(i<arrayList.size()-1)
             {
                 photoLabels+=",";
             }
         }
+
         try{
             conn = UtilDao.getConnection();
-            String insertPhotoFaceIdSql = "update photoinfo set  photolabels= '{"+photoLabels+"}' where photo_id = "+photoInfo.getPhotoId();
+            String insertPhotoFaceIdSql = "update photoinfo set  photolabels= '{"+photoLabels+"}' where photopath = '"+photoInfo.getPhotoPath()+"'";
             PreparedStatement preparedStatement = conn.prepareStatement(insertPhotoFaceIdSql);
             int num = preparedStatement.executeUpdate();
             while (num>0){
                 insertPhotoLabelRes = true;
             }
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return insertPhotoLabelRes;
+    }
+
+    @Override
+    public HashMap<String, String> getPhotoDetail(String photoPath) {
+        HashMap<String,String> photoDeatil = new HashMap<String,String>();
+        Connection conn = null;
+        try{
+            String getPhotoDeatilSql = "select takentime,takenplace,facesid,photolabels " +
+                    "from photoinfo " +
+                    "where photopath ='"+photoPath+"'";
+            conn = UtilDao.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(getPhotoDeatilSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                String takenTime = resultSet.getString("takentime");
+                String takenPlace = resultSet.getString("takenplace");
+                Array facesId = resultSet.getArray("facesid");
+                Array photoLabels = resultSet.getArray("photolabels");
+                System.out.println(facesId);
+                if(facesId==null){
+                    photoDeatil.put("facesId","");
+                }else{
+                    photoDeatil.put("facesId",facesId.toString());
+                }
+                if(photoLabels==null){
+                    photoDeatil.put("photoLabels","");
+                }else{
+                    photoDeatil.put("photoLabels",photoLabels.toString());
+                }
+                photoDeatil.put("takenTime",takenTime);
+                photoDeatil.put("takenPlace",takenPlace);
+
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return photoDeatil;
+    }
+
+    @Override
+    public boolean updatePhotoLabels(PhotoInfo photoInfo) {
+        boolean updateRes = false;
+        Connection conn = null;
+        try{
+            conn = UtilDao.getConnection();
+            String updatePhotoLabelsSql = "update photoinfo";
+
+
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateRes;
     }
 
 

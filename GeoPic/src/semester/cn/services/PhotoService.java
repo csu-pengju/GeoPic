@@ -79,4 +79,9 @@ public class PhotoService {
         photoDao = new photoDaoIml();
         return photoDao.insertPhotoFaceId(photoInfo);
     }
+
+    public HashMap<String,String> getPhotoDetail(String photoPath){
+        photoDao = new photoDaoIml();
+        return photoDao.getPhotoDetail(photoPath);
+    }
 }

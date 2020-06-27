@@ -17,4 +17,7 @@ public interface PhotoDao {
     public int getPhotoIdAcoordintPhotoPath(PhotoInfo photoInfo);
     public boolean insertPhotoFaceId(PhotoInfo photoInfo);
     public boolean insertPhotoLabel(PhotoInfo photoInfo);
+    public HashMap<String,String>getPhotoDetail(String photoPath);
+
+    public boolean updatePhotoLabels(PhotoInfo photoInfo);
 }
