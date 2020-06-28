@@ -3,6 +3,10 @@ package semester.cn.servlets;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.opencv.photo.Photo;
+import semester.cn.domain.FaceInfo;
+import semester.cn.domain.PhotoInfo;
+import semester.cn.services.FaceService;
 import semester.cn.services.PhotoService;
 
 import javax.servlet.ServletException;
@@ -12,11 +16,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @WebServlet(name = "getQueryPhotoPathServlet")
 public class getQueryPhotoPathServlet extends HttpServlet {
     private PhotoService photoService;
+    private PhotoInfo photoInfo;
+    private FaceInfo faceInfo;
+    private FaceService faceService;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,9 +38,6 @@ public class getQueryPhotoPathServlet extends HttpServlet {
         String geo = request.getParameter("geo");
         String photoLabels = request.getParameter("photoLabels");
         String faceLabels = request.getParameter("faceLabels");
-        System.out.println("condition ："+condition);
-        System.out.println("address"+address);
-        System.out.println("geo"+geo);
         ArrayList<String> res = new ArrayList<>();
         switch (condition){
             case("timeQuery"):
@@ -46,6 +51,15 @@ public class getQueryPhotoPathServlet extends HttpServlet {
                 System.out.println("地点查询"+res);
                 break;
             case("semanticQuery"):
+                photoService = new PhotoService();
+                photoInfo = new PhotoInfo();
+                if(photoLabels!=""){
+                    photoInfo.setPhotoLabels(getArrayListFromString(photoLabels));
+                }
+                if(faceLabels!=""){
+                    photoInfo.setFacesId(getFaceIdArrayList(faceLabels));
+                }
+                res = photoService.getSemanticQueryPhotoPath(photoInfo);
                 break;
             case("integratedQuery"):
                 break;
@@ -72,4 +86,49 @@ public class getQueryPhotoPathServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
     }
+
+    /**
+     *  getArrayList from a str
+     * @param str String to transform to ArrayList
+     * @return ArrayList
+     */
+    protected ArrayList<String> getArrayListFromString(String str){
+        ArrayList<String> res = new ArrayList<>();
+        System.out.println(res.size());
+        if(str.contains("/")){
+            String []strs = str.split("/");
+            for(int i = 0;i<strs.length;i++){
+                res.add(strs[i]);
+            }
+        }else{
+            res.add(str);
+        }
+        System.out.println(res);
+        return res;
+    }
+
+    /**
+     *
+     * @param faceLabels faceLabel get from 前端
+     * @return 每个faceLabel对应的faceId
+     */
+    protected ArrayList<Integer> getFaceIdArrayList(String faceLabels){
+        ArrayList<Integer> res = new ArrayList<>();
+        ArrayList <String>faceLabelsArrList = new ArrayList<>();
+        faceLabelsArrList = getArrayListFromString(faceLabels);
+        faceService = new FaceService();
+        if(faceLabelsArrList.size()>0){
+            for(int i = 0;i<faceLabelsArrList.size();i++){
+                faceInfo = new FaceInfo();
+                faceInfo.setFaceLabel( faceLabelsArrList.get(i));
+                int faceId = faceService.getFaceIdAccordingFaceLabel(faceInfo);
+                if(faceId!=-1){
+                    res.add(faceId);
+                }
+            }
+        }
+        return res;
+    }
+
+
 }

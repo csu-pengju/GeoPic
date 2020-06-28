@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class photoDaoIml  implements PhotoDao {
 //    private static String insertPhotoInfoSql = "insert into photoinfo " +
 //        " (takenplace,takentime,geo,photopath) " +
@@ -281,20 +282,70 @@ public class photoDaoIml  implements PhotoDao {
     }
 
     @Override
-    public boolean updatePhotoLabels(PhotoInfo photoInfo) {
-        boolean updateRes = false;
+    public ArrayList<String> getSemanticQueryPhotoPath(PhotoInfo photoInfo) {
         Connection conn = null;
-        try{
+        ArrayList<String> semanticQueryRes = new ArrayList<>();
+        try {
             conn = UtilDao.getConnection();
-            String updatePhotoLabelsSql = "update photoinfo";
+            String getSemanticQueryPhotoPathSql = "select photopath from photoinfo where ";
+            String photoLabels = "";
+            String facesId = "";
 
+            if(photoInfo.getPhotoLabels()!=null){
+                if(photoInfo.getFacesId()!=null){
 
-            conn.close();
+                    photoLabels = getStringArrayListString(photoInfo.getPhotoLabels());
+                    facesId = getIntegerArrayListString(photoInfo.getFacesId());
+                    getSemanticQueryPhotoPathSql+=" photolabels @> '{"+photoLabels+"}' and facesid @> '{"+facesId+"}'";
+                }else{
+
+                    photoLabels = getStringArrayListString(photoInfo.getPhotoLabels());
+                    getSemanticQueryPhotoPathSql+=" photolabels @> '{"+photoLabels+"}'";
+                }
+            }else{
+                if(photoInfo.getFacesId()!=null){
+
+                    facesId = getIntegerArrayListString(photoInfo.getFacesId());
+                    getSemanticQueryPhotoPathSql += " facesid @>'{"+facesId+"}'";
+                }else{
+                    return null;
+                }
+            }
+
+            PreparedStatement preparedStatement = conn.prepareStatement(getSemanticQueryPhotoPathSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                semanticQueryRes.add(resultSet.getString("photopath"));
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return updateRes;
+        return  semanticQueryRes;
+    }
+
+    private String getStringArrayListString(ArrayList<String> arrayList){
+        String listString = "";
+        for(int i = 0;i<arrayList.size();i++){
+            listString +='"'+arrayList.get(i)+'"';
+            if(i<arrayList.size()-1)
+            {
+                listString+=",";
+            }
+        }
+        return listString;
+    }
+
+    private String getIntegerArrayListString(ArrayList<Integer> arrayList){
+        String listString = "";
+        for(int i = 0;i<arrayList.size();i++){
+            listString +=arrayList.get(i);
+            if(i<arrayList.size()-1)
+            {
+                listString+=",";
+            }
+        }
+        return listString;
     }
 
 

@@ -1,5 +1,6 @@
 package semester.cn.services;
 
+import org.opencv.photo.Photo;
 import semester.cn.domain.PhotoInfo;
 import semester.cn.persistence.PhotoDao;
 import semester.cn.persistence.impl.photoDaoIml;
@@ -83,5 +84,10 @@ public class PhotoService {
     public HashMap<String,String> getPhotoDetail(String photoPath){
         photoDao = new photoDaoIml();
         return photoDao.getPhotoDetail(photoPath);
+    }
+
+    public ArrayList<String> getSemanticQueryPhotoPath(PhotoInfo photoInfo){
+        photoDao = new photoDaoIml();
+        return photoDao.getSemanticQueryPhotoPath(photoInfo);
     }
 }

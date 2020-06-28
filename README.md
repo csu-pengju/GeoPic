@@ -4,6 +4,17 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 # Update Daily
 
 ## modified by Daisy
+### 2020.06.28 10：39
+1. 完成照片的语义查询功能，并且已经经过测试
+2. 但是我现在照片查询和照片地图的menu-box的排版出了问题艾，还没发现为什么，等我把功能写好再去看看
+3. 下一步：照片的综合查询
+
+1. Complete the semantic query function of photos, which has been tested
+2. But there is something wrong with the layout of menu-box of photo query and photo map. I haven't found the reason yet
+3. Next step: Comprehensive query of photos
+
+
+## modified by Daisy
 ### 2020.06.27 22:20
 1. 完成照片详情模态框的相关内容，可以实现通过点击照片墙的照片查看照片详情，并且可以编辑更新照片标签
 2. 下一步:写照片的语义查询
@@ -12,6 +23,7 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 1. Complete the relevant contents of the photo details modal box. Click the photo on the photo wall to view the photo details, and edit and update the photo label
 2. Next step: Write semantic query for photos
 3. Next step: Photo details update success and failure information prompt box
+
 
 ## modified by Daisy
 ### 2020.06.20  18：57

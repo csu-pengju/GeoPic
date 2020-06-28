@@ -39,4 +39,10 @@ public class FaceService {
         return faceDao.getFacePathAndLabel(faceId);
     }
 
+    //根据法测Label获取face_id
+    public int getFaceIdAccordingFaceLabel(FaceInfo faceInfo){
+        faceDao = new FaceDaoImpl();
+        return faceDao.getFaceIdAccordingFaceLabel(faceInfo);
+    }
+
 }

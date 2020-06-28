@@ -11,5 +11,5 @@ public interface FaceDao {
     public int getFaceIdAccordingFacePath(FaceInfo faceInfo);
     public int getFaceIdAccordingFaceToken(FaceInfo faceInfo);
     public HashMap<String,String> getFacePathAndLabel(int faceId);
-
+    public int getFaceIdAccordingFaceLabel(FaceInfo faceInfo);
 }

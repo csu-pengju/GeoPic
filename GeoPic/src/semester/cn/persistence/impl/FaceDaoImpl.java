@@ -142,4 +142,23 @@ public class FaceDaoImpl implements FaceDao {
         }
         return facePathAndLabel;
     }
+
+    @Override
+    public int getFaceIdAccordingFaceLabel(FaceInfo faceInfo) {
+        int faceId = -1;
+        Connection conn;
+        try{
+            conn = UtilDao.getConnection();
+            String getFAceIdAccordingFaceLabelSql = "select face_id from faceinfo " +
+                    "where facelabel = '"+faceInfo.getFaceLabel()+"' limit 1";
+            PreparedStatement preparedStatement = conn.prepareStatement(getFAceIdAccordingFaceLabelSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                faceId = resultSet.getInt("face_id");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return faceId;
+    }
 }

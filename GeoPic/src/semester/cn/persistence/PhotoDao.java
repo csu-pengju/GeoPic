@@ -19,5 +19,8 @@ public interface PhotoDao {
     public boolean insertPhotoLabel(PhotoInfo photoInfo);
     public HashMap<String,String>getPhotoDetail(String photoPath);
 
-    public boolean updatePhotoLabels(PhotoInfo photoInfo);
+    public ArrayList<String> getSemanticQueryPhotoPath(PhotoInfo photoInfo);
+
+
+
 }

@@ -37,6 +37,7 @@ PhotoQuery.prototype.controlQueryCondition = function () {
 
 PhotoQuery.prototype.getQueryPhotoPath = function(){
     var me = this;
+    // console.log("ddada")
     document.getElementById("photos-ul").innerHTML = "";
     me.condition = $(".selectC").val();
     console.log(me.condition)
@@ -45,6 +46,8 @@ PhotoQuery.prototype.getQueryPhotoPath = function(){
     me.address = $(".place-input").val();
     me.photoLabels =$(".photoLabel-input").val();
     me.faceLabels = $(".faceLabel-input").val();
+    console.log(me.photoLabels);
+    console.log(me.faceLabels)
     me.geo = "";
     // console.log(startTime,endTime,address,photoLabels,faceLabels)
     if(me.address!=""){
