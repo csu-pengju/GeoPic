@@ -43,25 +43,22 @@ public class getQueryPhotoPathServlet extends HttpServlet {
             case("timeQuery"):
                 photoService = new PhotoService();
                 res = photoService.getTimeQueryPhotoPath(startTime,endTime);
-                System.out.println("时间查询"+res);
+
                 break;
             case("placeQuery"):
                 photoService = new PhotoService();
                 res = photoService.getPlaceQueryPhotoPath(geo,address);
-                System.out.println("地点查询"+res);
+
                 break;
             case("semanticQuery"):
                 photoService = new PhotoService();
-                photoInfo = new PhotoInfo();
-                if(photoLabels!=""){
-                    photoInfo.setPhotoLabels(getArrayListFromString(photoLabels));
-                }
-                if(faceLabels!=""){
-                    photoInfo.setFacesId(getFaceIdArrayList(faceLabels));
-                }
+                photoInfo = setSemanticQueryParams(photoLabels,faceLabels);
                 res = photoService.getSemanticQueryPhotoPath(photoInfo);
                 break;
             case("integratedQuery"):
+                photoService = new PhotoService();
+                photoInfo = setSemanticQueryParams(photoLabels,faceLabels);
+                res = photoService.getIntegratedQueryPhotoPath(photoInfo,startTime,endTime,geo,address);
                 break;
             default:
                 break;
@@ -129,6 +126,18 @@ public class getQueryPhotoPathServlet extends HttpServlet {
         }
         return res;
     }
+
+    protected PhotoInfo setSemanticQueryParams(String photoLabels,String faceLabels){
+        photoInfo = new PhotoInfo();
+        if(photoLabels!=""){
+            photoInfo.setPhotoLabels(getArrayListFromString(photoLabels));
+        }
+        if(faceLabels!=""){
+            photoInfo.setFacesId(getFaceIdArrayList(faceLabels));
+        }
+        return photoInfo;
+    }
+
 
 
 }

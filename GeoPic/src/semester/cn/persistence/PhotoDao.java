@@ -1,5 +1,6 @@
 package semester.cn.persistence;
 
+import org.opencv.photo.Photo;
 import semester.cn.domain.PhotoInfo;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public interface PhotoDao {
     public HashMap<String,String>getPhotoDetail(String photoPath);
 
     public ArrayList<String> getSemanticQueryPhotoPath(PhotoInfo photoInfo);
+
+    public ArrayList<String >getIntegratedQueryPhotoPath(PhotoInfo photoInfo,String startTime,String endTime,String geo,String address);
 
 
 

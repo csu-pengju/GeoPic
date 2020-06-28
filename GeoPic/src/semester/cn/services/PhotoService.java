@@ -90,4 +90,9 @@ public class PhotoService {
         photoDao = new photoDaoIml();
         return photoDao.getSemanticQueryPhotoPath(photoInfo);
     }
+
+    public ArrayList<String> getIntegratedQueryPhotoPath(PhotoInfo photoInfo,String startTime,String endTime,String geo,String address){
+        photoDao = new photoDaoIml();
+        return photoDao.getIntegratedQueryPhotoPath(photoInfo,startTime,endTime,geo,address);
+    }
 }

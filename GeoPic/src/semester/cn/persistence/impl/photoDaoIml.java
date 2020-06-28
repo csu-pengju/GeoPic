@@ -10,10 +10,12 @@ import semester.cn.domain.PhotoInfo;
 import semester.cn.persistence.PhotoDao;
 import semester.cn.persistence.UtilDao;
 
+import javax.persistence.Id;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class photoDaoIml  implements PhotoDao {
@@ -293,7 +295,6 @@ public class photoDaoIml  implements PhotoDao {
 
             if(photoInfo.getPhotoLabels()!=null){
                 if(photoInfo.getFacesId()!=null){
-
                     photoLabels = getStringArrayListString(photoInfo.getPhotoLabels());
                     facesId = getIntegerArrayListString(photoInfo.getFacesId());
                     getSemanticQueryPhotoPathSql+=" photolabels @> '{"+photoLabels+"}' and facesid @> '{"+facesId+"}'";
@@ -317,11 +318,64 @@ public class photoDaoIml  implements PhotoDao {
             while (resultSet.next()){
                 semanticQueryRes.add(resultSet.getString("photopath"));
             }
-
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return  semanticQueryRes;
+    }
+
+    @Override
+    public ArrayList<String> getIntegratedQueryPhotoPath(PhotoInfo photoInfo,String startTime,String endTime,String geo,String address) {
+        Connection conn = null;
+        ArrayList<String >integratedQueryRes = new ArrayList<>();
+        try{
+            String getIntegratedQueryPhotoPathSql = "select photopath from photoinfo where ";
+            ArrayList<String> timeQueryRes = getTimeQueryPhotoPath(startTime,endTime);
+
+            ArrayList<String > semanticQueryRes = getSemanticQueryPhotoPath(photoInfo);
+
+            if(startTime!=""){
+                integratedQueryRes = timeQueryRes;
+//                System.out.println("你在哪里1");
+                if(geo!=""){
+//                    System.out.println("你在哪里2");
+                    ArrayList<String > placeQueryRes = getPlaceQueryPhotoPath(geo,address);
+                    integratedQueryRes = getSames(integratedQueryRes,placeQueryRes);
+                    if(photoInfo.getPhotoLabels()!=null||photoInfo.getFacesId()!=null){
+//                        System.out.println("你在哪里3");
+                        integratedQueryRes = getSames(integratedQueryRes,semanticQueryRes);
+                    }
+                }else{
+//                    System.out.println("你在哪里4");
+                    if(photoInfo.getPhotoLabels()!=null||photoInfo.getFacesId()!=null){
+//                        System.out.println("你在哪里5");
+                        System.out.println(integratedQueryRes);
+                        System.out.println(semanticQueryRes);
+                        integratedQueryRes = getSames(integratedQueryRes,semanticQueryRes);
+                    }
+                }
+            }else{
+                if(geo!=""){
+//                    System.out.println("你在哪里6");
+                    ArrayList<String > placeQueryRes = getPlaceQueryPhotoPath(geo,address);
+                    integratedQueryRes = placeQueryRes;
+                    if(photoInfo.getPhotoLabels()!=null||photoInfo.getFacesId()!=null){
+                        integratedQueryRes = getSames(integratedQueryRes,semanticQueryRes);
+                    }
+                }else{
+//                    System.out.println("你在哪里7");
+                    if(photoInfo.getPhotoLabels()!=null||photoInfo.getFacesId()!=null){
+                        integratedQueryRes = semanticQueryRes;
+                    }
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return integratedQueryRes;
     }
 
     private String getStringArrayListString(ArrayList<String> arrayList){
@@ -349,4 +403,22 @@ public class photoDaoIml  implements PhotoDao {
     }
 
 
+    private  ArrayList<String> getSames(ArrayList<String> arr1,ArrayList<String> arr2){
+        ArrayList<String> sames = new ArrayList<>();
+        if(arr1!=null&&arr2!=null){
+            for(int i = 0;i<arr1.size();i++){
+                for(int j = 0;j< arr2.size();j++){
+                    if(arr1.get(i).equals(arr2.get(j)))
+                    {
+                        sames.add(arr1.get(i));
+                    }
+                }
+            }
+        }
+        return sames;
+
+    }
+
+
 }
+
