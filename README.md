@@ -4,6 +4,10 @@ A  Java Web Project for WebGIS course .We call it as "GeoPic". In fact, it is Ju
 # Update Daily
 
 ## modified by Daisy
+### 2020.06.30 20:52
+1. 完成顶部照片轮播的随机显示，并且照片适应尺寸
+
+## modified by Daisy
 ### 2020.06.30 20:12
 1. 完成检测出的多个人脸以此出现模态框的bug问题
 2. 发现了照片地图和照片查询页面为啥排版乱了的原因

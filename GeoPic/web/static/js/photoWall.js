@@ -97,12 +97,45 @@ PhotoWall.prototype.initPhotoWall = function(){
         data:"",
         success:function (res) {
             var json = typeof res=='string'?JSON.parse(res):res;
+            me.getRandomPhotoForImageScroll(json.photoPath);
             for (var i = 0;i<json.photoPath.length;i++){
                 // console.log(json.photoPath[i]);
                 me.CreateImage(json.photoPath[i]);
             }
         }
     });
+};
+PhotoWall.prototype.getRandomPhotoForImageScroll = function(photos){
+  var me = this;
+  me.array = [];
+  for(var i = 0;;i++){
+      if(me.array.length<6){
+          me.generateRandom(photos.length);
+      }else{
+          break;
+      }
+  }
+    me.fuzhiImageScroll(photos)
+};
+
+PhotoWall.prototype.fuzhiImageScroll = function(photos){
+    var me = this;
+    var imgs = $(".imgae-scroll").find("img");
+    for(var  i = 0;i<imgs.length;i++){
+        $(imgs[i]).attr({"src":photos[me.array[i]]});
+    }
+};
+
+PhotoWall.prototype.generateRandom = function(count){
+    var me = this;
+
+    var rand = parseInt(Math.random()*count);
+    for(var i = 0 ; i < me.array.length; i++){
+        if(me.array[i] == rand){
+            return false;
+        }
+    }
+    me.array.push(rand);
 };
 
 /**
