@@ -18,7 +18,7 @@ create table photoinfo(
 	takenplace varchar,
 	takentime timestamp,
 	geo Geometry(('POINT'),3857),
-	photolables text[],
+	photolabels text[],
 	photopath varchar not null,
 	facesid integer[],
 	user_id integer,
@@ -27,7 +27,7 @@ create table photoinfo(
 DROP TABLE IF EXISTS faceinfo ;
 create table faceinfo(
 	face_id serial primary key,
-	facelables text[],
+	facelabel varchar,
 	faceToken text[] not null,
 	facepath varchar not null
 	);

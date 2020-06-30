@@ -65,10 +65,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/web/WEB-INF/lib" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/support" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
@@ -194,7 +194,10 @@
       <workItem from="1592146154678" duration="612000" />
       <workItem from="1592492118458" duration="54196000" />
       <workItem from="1592650334478" duration="152000" />
-      <workItem from="1593046571523" duration="63041000" />
+      <workItem from="1593046571523" duration="71383000" />
+      <workItem from="1593346336627" duration="789000" />
+      <workItem from="1593355138740" duration="31000" />
+      <workItem from="1593355627454" duration="14201000" />
     </task>
     <servers />
   </component>

@@ -96,11 +96,16 @@ PhotoDetail.prototype.updatePhotoLabel = function(photoPath){
        },
         success:function (res) {
             console.log(res)
-            console.log("update");
-            $.message('成功');
+
+            $(".photoDetailModal").css({
+                display:"none"
+            });
+            console.log("dad")
+            // $.message('成功');
         },
         error:function (err) {
             console.log(err)
+            alert("更新照片标签失败！");
         }
     });
 

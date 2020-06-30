@@ -50,7 +50,11 @@ public class getPhotoDataServlet extends HttpServlet {
 
         String imageName = temp[0];
         String imgStr = temp[1];
-        String path = "D:\\Projects\\WebGIS\\GeoPic\\GeoPic\\web\\static\\data\\photos\\";
+        System.out.println(request.getSession().getServletContext().getRealPath(""));
+//        String path = "D:\\Projects\\WebGIS\\GeoPic\\GeoPic\\web\\static\\data\\photos\\";
+        String path = request.getServletContext().getRealPath("/")+"static\\data\\photos\\";
+        //下面这个是打包发布时的路径
+//        String path = "/data/wwwroot/default/GeoPic_war/static/data/photos/";
         boolean judgeIsExistRes = judgeIsExist(imageName,path);
         if(judgeIsExistRes){
             res.put("message","图片已存在，不重复入库");
@@ -67,8 +71,10 @@ public class getPhotoDataServlet extends HttpServlet {
                         b[i]+=256;
                     }
                 }
-                String imagePath = "D:\\Projects\\WebGIS\\GeoPic\\GeoPic\\web\\static\\data\\photos\\"+imageName;
-                String thums = "D:\\Projects\\WebGIS\\GeoPic\\GeoPic\\web\\static\\data\\faces\\"+imageName;
+                String imagePath = request.getServletContext().getRealPath("/")+"static\\data\\photos\\"+imageName;
+                //下面这个是打包发布时的路径
+//                String imagePath = "/data/wwwroot/default/GeoPic_war/static/data/photos/"+imageName;
+
                 System.out.println(imagePath);
                 OutputStream o = new FileOutputStream(imagePath);
                 o.write(b);

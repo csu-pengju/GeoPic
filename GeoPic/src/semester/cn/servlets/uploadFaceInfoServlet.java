@@ -28,8 +28,18 @@ public class uploadFaceInfoServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         String faces = request.getParameter("faces");
-        String oriImagePath = "D:\\Projects\\WebGIS\\GeoPic\\GeoPic\\web\\static\\data\\photos\\"+request.getParameter("file");
-        String facePath = "D:\\Projects\\WebGIS\\GeoPic\\GeoPic\\web\\static\\data\\faces\\";
+
+
+        String oriImagePath = request.getServletContext().getRealPath("/")+"static\\data/photos\\"+request.getParameter("file");
+        //下面这个是打包发布时的路径
+//        String oriImagePath ="/data/wwwroot/default/GeoPic_war/static/data/photos/"+request.getParameter("file");
+//        String oriImagePath = "D:\\Projects\\WebGIS\\GeoPic\\GeoPic\\web\\static\\data\\photos\\"+request.getParameter("file");
+//        String facePath = "D:\\Projects\\WebGIS\\GeoPic\\GeoPic\\web\\static\\data\\faces\\";
+
+        String facePath = request.getServletContext().getRealPath("/")+"static\\data\\faces\\";
+
+        //下面这个是打包发布时的路径
+//        String facePath = "/data/wwwroot/default/GeoPic_war/static/data/faces/";
         File file = new File(facePath);// 图片存放路径
         File list[] = file.listFiles();
         int faceDirNum = list.length;

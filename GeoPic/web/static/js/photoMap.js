@@ -84,6 +84,12 @@ PhotoMap.prototype.markerMap = function (GPSAndPath) {
         5:1,
         6:1,
         7:1,
+        8:1,
+        9:0,
+        10:0,
+        11:0,
+        12:0,
+        13:0,
         14:0,
         15:0,
         16:0,
@@ -97,38 +103,39 @@ PhotoMap.prototype.markerMap = function (GPSAndPath) {
         console.log(GPSAndPath[i].GPS)
         var marker = new AMap.ElasticMarker({
             position:me.getGPSPosition(GPSAndPath[i].GPS),
-            zooms:[14,20],
+            zooms:[4,20],
             styles:[{
                 icon:{
                     img:GPSAndPath[i].Path,
-                    size:[100,100],//可见区域的大小
-                    ancher:[8,16],//锚点
+                    size:[40,40],//可见区域的大小
+                    ancher:[0,0],//锚点,相对于左上角
                     fitZoom:14,//最合适的级别
                     scaleFactor:2,//地图放大一级的缩放比例系数
                     maxScale:2,//最大放大比例
-                    minScale:0.8//最小放大比例
+                    minScale:0.8,//最小放大比例,
+                    zIndex:2
                 },
                 label:{
-                    content:"彭举",
-                    offset:[65,-200],
-                    position:'BM',
+                    //content:"彭举",
+                    offset:[-15,-5],
+                    position:'TR',
                     minZoom:15
                 }
             },{
                 icon:{
                     img:GPSAndPath[i].Path,
-                    size:[100,100],//可见区域的大小
-                    ancher:[8,16],//锚点
+                    size:[40,40],//可见区域的大小
+                    ancher:[0,0],//锚点
                     fitZoom:4,//最合适的级别
                     scaleFactor:2,//地图放大一级的缩放比例系数
                     maxScale:2,//最大放大比例
                     minScale:0.8//最小放大比例
                 },
                 label:{
-                    content:GPSAndPath.length,
-                    offset:[65,-200],
-                    position:'BM',
-                    minZoom:15
+                    //content:GPSAndPath.length,
+                   // offset:[65,-200],
+                    offset:[0,0],
+                    position:'TR'
                 }
             }
             ],
@@ -138,6 +145,10 @@ PhotoMap.prototype.markerMap = function (GPSAndPath) {
         spots.push(marker);
     }
     me.amap.add(spots);
+    var mousedownEvent = marker.on("mousedown",function (e) {
+        console.log(e)
+    })
+
 
 };
 
