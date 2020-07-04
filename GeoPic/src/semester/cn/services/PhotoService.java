@@ -95,4 +95,9 @@ public class PhotoService {
         photoDao = new photoDaoIml();
         return photoDao.getIntegratedQueryPhotoPath(photoInfo,startTime,endTime,geo,address);
     }
+
+    public HashMap<String ,String >getAllTimeLinePhotoPath(){
+        photoDao = new photoDaoIml();
+        return  photoDao.getAllTimeLinePhotoPath();
+    }
 }

@@ -9,7 +9,6 @@ function initGoogleMap() {
  */
 
 PhotoMap = function (options) {
-    console.log("hello")
     var me = this;
     me.options = $.extend({
         width:"100%",
@@ -145,9 +144,14 @@ PhotoMap.prototype.markerMap = function (GPSAndPath) {
         spots.push(marker);
     }
     me.amap.add(spots);
-    var mousedownEvent = marker.on("mousedown",function (e) {
-        console.log(e)
-    })
+
+    // AMap.event.addListener(placeSearch, "markerClick", function(e){
+    //     console.log(e.data.location);//当前marker的经纬度信息
+    //     document.getElementById("lnglat").value = e.data.location.lng + ',' + e.data.location.lat;
+    //     console.log( e.data.address);//获取当前marker的具体地址信息
+    //     console.log(e.data);//则是包含所有的marker数据
+    //     document.getElementById("input").value =  e.data.address;
+
 
 
 };

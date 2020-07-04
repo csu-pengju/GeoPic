@@ -108,4 +108,12 @@
         <url-pattern>/getPhotoDetailServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>getTimeLinePhotoPathServlet</servlet-name>
+        <servlet-class>semester.cn.servlets.getTimeLinePhotoPathServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getTimeLinePhotoPathServlet</servlet-name>
+        <url-pattern>/getTimeLinePhotoPathServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

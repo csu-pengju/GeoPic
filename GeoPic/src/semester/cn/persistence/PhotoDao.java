@@ -24,6 +24,8 @@ public interface PhotoDao {
 
     public ArrayList<String >getIntegratedQueryPhotoPath(PhotoInfo photoInfo,String startTime,String endTime,String geo,String address);
 
+    public HashMap<String,String>getAllTimeLinePhotoPath();
+
 
 
 }

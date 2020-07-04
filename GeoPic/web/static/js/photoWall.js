@@ -629,7 +629,7 @@ PhotoWall.prototype.passPhotoInfo = function(file){
         async:true,
         success:function (res) {
             me.getFaceInfo(file);
-            console.log(res);
+            TimeLine.prototype.getAllTimeLinePhotos();
         }
     });
 
@@ -650,8 +650,6 @@ PhotoWall.prototype.CreateImage = function (res) {
         // width:300+"px",
         // height:300+"px"
     });
-    var li = document.createElement('li');
-    li.innerHTML='<a href="#"><img src="../images/lunbo6.jpg" /></a>';
     me.myli = $("<li></li>").appendTo(me.ul).css({
         display:"inline",
         padding:22+"px",
@@ -664,6 +662,7 @@ PhotoWall.prototype.CreateImage = function (res) {
         width:180+"px",
         height:180+"px"
     }).addClass("myImg");
+
 
 };
 

@@ -5,8 +5,21 @@
 PhotoQuery = function () {
     var me = this;
     me.controlQueryCondition();
+    me.setDefaultDate();
 };
 
+PhotoQuery.prototype.setDefaultDate = function(){
+  var me = this;
+  console.log("hh")
+  var now = new Date();
+  //格式化日，如果小于9，前面补0
+  var day = ("0" + now.getDate()).slice(-2);
+  //格式化月，如果小于9，前面补0
+  var month = ("0" + (now.getMonth() + 1)).slice(-2);
+  //拼装完整日期格式
+  var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+  $(".toDate-input").val(today);
+};
 PhotoQuery.prototype.controlQueryCondition = function () {
     var me = this;
     var obj = $(".selectC").val();
@@ -73,7 +86,7 @@ PhotoQuery.prototype.getQueryPhotoPath = function(){
 
                 for(var i = 0;i<json.photoPath.length;i++){
                     me.showQueryRes(json.photoPath[i]);
-                    console.log(json.photoPath[i]);
+                    console.log("he"+json.photoPath[i]);
                 }
             },
         });
@@ -128,7 +141,12 @@ PhotoQuery.prototype.getGPSFromAddress = function(address){
                 },
                 async:true,
                 success:function (res){
-                    console.log(res);
+                    var json = typeof res=='string'?JSON.parse(res):res;
+
+                    for(var i = 0;i<json.photoPath.length;i++){
+                        me.showQueryRes(json.photoPath[i]);
+                        console.log("he"+json.photoPath[i]);
+                    }
                 }
             });
         }

@@ -117,10 +117,11 @@ public class photoDaoIml  implements PhotoDao {
     public ArrayList<String> getPlaceQueryPhotoPath(String geo, String address) {
         Connection conn = null;
         ArrayList<String> placeQueryRes = new ArrayList<>();
+        HashMap<String,String > temp = new HashMap<>();
         try{
             String getPlaceQueryPhotoPathSql = "select photopath from photoinfo " +
                     "  where ST_Distance(st_transform(st_setsrid(geo,4326),3857), st_transform(st_setsrid('"+
-                    geo+"'::geometry,4326),3857))<2000";
+                    geo+"'::geometry,4326),3857))<3000";
 
             //select st_astext(geo) from photoinfo where ST_Distance(st_transform(st_setsrid(geo,4326),3857),
             //	st_transform(st_setsrid('POINT(112.926388 28.164166)'::geometry,4326),3857)) <10
@@ -129,7 +130,20 @@ public class photoDaoIml  implements PhotoDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 String path = resultSet.getString(1);
-                placeQueryRes.add(path);
+                temp.put(path,path);
+
+            }
+            //这里是第二种查询，字符串的模糊匹配
+            String getPalceQueryPhotoPathSql2 = "select photopath from photoinfo " +
+                    "where takenplace like '%"+address+"%'";
+            preparedStatement = conn.prepareStatement(getPalceQueryPhotoPathSql2);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                String path = resultSet.getString(1);
+                temp.put(path,path);
+            }
+            for (String key:temp.keySet()) {
+                placeQueryRes.add(key);
             }
             conn.close();
         } catch (Exception e) {
@@ -137,6 +151,7 @@ public class photoDaoIml  implements PhotoDao {
         }
         return placeQueryRes;
     }
+
 
     @Override
     public ArrayList<String> getAllPhotoPath() {
@@ -376,6 +391,31 @@ public class photoDaoIml  implements PhotoDao {
             e.printStackTrace();
         }
         return integratedQueryRes;
+    }
+
+    @Override
+    public HashMap<String, String> getAllTimeLinePhotoPath() {
+        HashMap<String,String> res = new HashMap<>();
+        Connection conn = null;
+        try{
+            conn = UtilDao.getConnection();
+            String getAllTimeLinePhotoPathSql = "select photopath,takentime " +
+                    "from photoinfo " +
+                    "where takentime !='9999-01-01 00:00:00'  " +
+                    "order by takentime desc ";
+            PreparedStatement preparedStatement = conn.prepareStatement(getAllTimeLinePhotoPathSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                String time = resultSet.getTimestamp("takentime").toString();
+                String path = resultSet.getString("photopath");
+                res.put(path,time);
+
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     private String getStringArrayListString(ArrayList<String> arrayList){

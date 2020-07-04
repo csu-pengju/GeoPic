@@ -49,7 +49,7 @@ PhotoDetail.prototype.getPhotoDetail = function (photoPath) {
         success:function (res) {
             var json = typeof res=='string'?JSON.parse(res):res;
             var facesPathAndLabel = json.facesId;
-            console.log(facesPathAndLabel.length)
+            //console.log(facesPathAndLabel.length)
             var takenPlace = json.takenPlace;
             var takenTime = json.takenTime;
             var photoLabels = json.photoLabels;

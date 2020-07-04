@@ -8,24 +8,25 @@
     <link rel="stylesheet" href="../css/photoWall.css">
     <link rel="stylesheet" href="../css/faceModal.css">
     <link rel="stylesheet" href="../css/photoModal.css">
-
+    <link rel="stylesheet" href="../css/timeLine.css">
     <script type="text/javascript" src="../../support/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="../js/photoWall.js"></script>
     <script type="text/javascript" src="../js/photoDetail.js"></script>
+    <script type="text/javascript" src="../js/timeLine.js"></script>
     <script src="../../support/exif.js"></script>
-<!--    <link rel="stylesheet" type="text/css" href="../../support/infoTip/css/bootstrap.css">-->
-<!--    <link rel="stylesheet" href="../../support/infoTip/css/message.css">-->
-<!--    <script src="../../support/infoTip/js/message.js"></script>-->
+
 
     <script>
 
         var photoWall = new PhotoWall();
+        var timeLine = new TimeLine();
     // photoWall.removeFaceToken()
     </script>
 
 </head>
 <body onload="photoWall.imageScroll()">
 <div>
+
     <div class="container-box">
         <div class="imgae-scroll" align="center">
             <img src="../images/lunbo1.jpg"  id = "inputCanvasId"style="display: block;width: 100%;">
@@ -49,12 +50,13 @@
             <span class="photoMap-menu"><a href="photoMap.html">照片地图</a></span>
         </div>
         <div class="contents-box">
+
             <div class="left-box">
                 <div class="splendid-text-box">
                     <p>Splendid Moment</p>
                 </div>
                 <div class="function-menu-box">
-                    <div class="time-scale-choose-box">
+                    <div class="time-scale-choose-box" onclick="alert('功能建设中.....')">
                         <input type="radio" value="年" class="year" name="timescale"><label>年</label>
                         <input type="radio" value="月" class="month" name="timescale"><label>月</label>
                     </div>
@@ -62,14 +64,10 @@
                         <div class="upload-box">
                             <label>Uploads</label>
                             <img src="../images/upload.jpg" >
-<!--                            <form id="form-input" onsubmit="submits()"  method="post" action="/StoreServlet" enctype="multipart/form-data">-->
-
                                 <input type="file" id="input_upload_driver" name="file" multiple="multiple" onchange=photoWall.uploadPhotos()>
-<!--                                <input type="submit"/>-->
-<!--                            </form>-->
 
                         </div>
-                        <div class="delete-box">
+                        <div class="delete-box" onclick="alert('照片回收站正在建设中,欢迎稍后访问......')">
                             <img src="../images/delete.jpg">
                         </div>
                    </div>
@@ -130,7 +128,20 @@
 
                     </div>
                 </section>
+                <!--                timeline模态框-->
+                <section class="timelineModel">
+                    <div class="timelineModel-title">
+                        <span>
+                            Photos
+                        </span>
+                        <img src="../images/cancel.png"class="cancelTimeLineModel" onclick="timeLine.closeTimeLineModal()">
+                    </div>
+                    <div class="timelineModel-photos-box">
+                        <ul class="timelineModel-photos">
+                        </ul>
+                    </div>
 
+                </section>
                 <div class="photoWallList-box">
                     <div class="thumbs">
                         <ul id="thumbs-ul">
@@ -139,8 +150,26 @@
                 </div>
             </div>
             <div class="right-box">
-                <span class="timeline-text">Timeline</span>
-                <span class="timeline-2020-text">2020</span>
+
+                <div class="timelineTitle">
+                    <span class="timeline-text">Timeline</span>
+                    <span class="timeline-2020-text">2020—</span>
+                </div>
+                <div class="timeline-box">
+                    <ul class="timeline-ul-box">
+<!--                        <li class="timeline-left">-->
+<!--                            <a >2020.07</a>-->
+<!--                        </li>-->
+<!--                        <li class="timeline-right">-->
+<!--                            <a>-->
+<!--                                2020.07-->
+<!--                            </a>-->
+<!--                        </li>-->
+
+                    </ul>
+                </div>
+                </div>
+
             </div>
 
        </div>
