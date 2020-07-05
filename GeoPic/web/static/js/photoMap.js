@@ -105,7 +105,7 @@ PhotoMap.prototype.markerMap = function (GPSAndPath) {
             zooms:[4,20],
             styles:[{
                 icon:{
-                    img:GPSAndPath[i].Path,
+                    img:GPSAndPath[i].Path.replace("photos","thumbs"),
                     size:[40,40],//可见区域的大小
                     ancher:[0,0],//锚点,相对于左上角
                     fitZoom:14,//最合适的级别

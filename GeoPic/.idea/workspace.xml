@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
+      <artifact name="GeoPic:war" />
       <artifact name="GeoPic:war exploded" />
     </artifacts-to-build>
   </component>
@@ -65,7 +66,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/web/WEB-INF/lib" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/WEB-INF/lib" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -75,11 +76,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\WEB-INF\lib" />
       <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\support" />
       <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\support\bootstrap-4.1.3-dist\js" />
       <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\support\opencv" />
       <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\web\static\data\photos" />
-      <recent name="D:\Projects\WebGIS\GeoPic\GeoPic\data\photos" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -197,7 +198,8 @@
       <workItem from="1593046571523" duration="71383000" />
       <workItem from="1593346336627" duration="789000" />
       <workItem from="1593355138740" duration="31000" />
-      <workItem from="1593355627454" duration="45515000" />
+      <workItem from="1593355627454" duration="50376000" />
+      <workItem from="1593916352263" duration="6704000" />
     </task>
     <servers />
   </component>

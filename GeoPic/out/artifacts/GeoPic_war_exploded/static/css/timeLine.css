@@ -17,7 +17,7 @@
     padding-right: 4%;
 }
 .timeline-right{
-    width: 43.25%;
+    width: 43.3%;
     height: 70px;
     float: right;
     font-size: 36px;
@@ -78,9 +78,7 @@
     margin: 0 auto;
     text-align: center;
 }
-.timelineModel-photos-box{
-    /*overflow: scroll;*/
-}
+
 
 .timelineModel-photos li {
     list-style: none;

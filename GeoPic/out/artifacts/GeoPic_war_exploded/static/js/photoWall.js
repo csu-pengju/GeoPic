@@ -122,7 +122,7 @@ PhotoWall.prototype.fuzhiImageScroll = function(photos){
     var me = this;
     var imgs = $(".imgae-scroll").find("img");
     for(var  i = 0;i<imgs.length;i++){
-        $(imgs[i]).attr({"src":photos[me.array[i]]});
+        $(imgs[i]).attr({"src":photos[me.array[i]].replace("thumbs","photos")});
     }
 };
 
@@ -262,16 +262,6 @@ PhotoWall.prototype.uploadPhotosToDB = function(file){
         // console.log(this.result)
         me.CreateImage(this.result);
     }
-    // for(var i = 0;i<files.length;i++){
-    //     var file = files[i];
-    //     me.getExifData(file);
-    //     var reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onload=function (ev) {
-    //         // console.log(this.result)
-    //         me.CreateImage(this.result);
-    //     }
-    // }
 }
 /**
  * 将上传的照片上传到face++ API to detect faces in photo

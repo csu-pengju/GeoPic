@@ -1,5 +1,6 @@
 package semester.cn.servlets;
 
+import net.coobird.thumbnailator.Thumbnails;
 import net.sf.json.JSONObject;
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -53,8 +54,10 @@ public class getPhotoDataServlet extends HttpServlet {
         System.out.println(request.getSession().getServletContext().getRealPath(""));
 //        String path = "D:\\Projects\\WebGIS\\GeoPic\\GeoPic\\web\\static\\data\\photos\\";
         String path = request.getServletContext().getRealPath("/")+"static\\data\\photos\\";
+
         //下面这个是打包发布时的路径
 //        String path = "/data/wwwroot/default/GeoPic_war/static/data/photos/";
+        String imagePath = request.getServletContext().getRealPath("/")+"static\\data\\photos\\"+imageName;
         boolean judgeIsExistRes = judgeIsExist(imageName,path);
         if(judgeIsExistRes){
             res.put("message","图片已存在，不重复入库");
@@ -71,7 +74,7 @@ public class getPhotoDataServlet extends HttpServlet {
                         b[i]+=256;
                     }
                 }
-                String imagePath = request.getServletContext().getRealPath("/")+"static\\data\\photos\\"+imageName;
+
                 //下面这个是打包发布时的路径
 //                String imagePath = "/data/wwwroot/default/GeoPic_war/static/data/photos/"+imageName;
 
@@ -86,6 +89,12 @@ public class getPhotoDataServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        String thumbPath = imagePath.replace("photos","thumbs");
+        try{
+            Thumbnails.of(imagePath).size(200,200).toFile(thumbPath);
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
     }

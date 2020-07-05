@@ -85,8 +85,8 @@ PhotoQuery.prototype.getQueryPhotoPath = function(){
                 var json = typeof res=='string'?JSON.parse(res):res;
 
                 for(var i = 0;i<json.photoPath.length;i++){
-                    me.showQueryRes(json.photoPath[i]);
-                    console.log("he"+json.photoPath[i]);
+                    me.showQueryRes(json.photoPath[i].replace("photos","thumbs"));
+                    console.log("he"+json.photoPath[i].replace("photos","thumbs"));
                 }
             },
         });

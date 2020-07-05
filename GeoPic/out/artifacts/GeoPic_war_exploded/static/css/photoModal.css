@@ -88,8 +88,10 @@
     font-weight: bold;
     position: absolute;
     left: 40px;
-
+    white-space: normal;
 }
+
+
 .photoInfo-takenPlace{
     margin-top: 35px;
 }

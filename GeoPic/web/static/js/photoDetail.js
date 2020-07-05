@@ -4,6 +4,9 @@
  */
 PhotoDetail = function (options) {
     let me = this;
+    console.log(options+"optoin")
+    options = options.replace("thumbs","photos");
+    console.log(options)
     $(".photoDetailModal").css({
         display:"block"
     });

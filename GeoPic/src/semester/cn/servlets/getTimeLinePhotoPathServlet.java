@@ -50,7 +50,7 @@ public class getTimeLinePhotoPathServlet extends HttpServlet {
         list.sort((Comparator<? super HashMap.Entry<String, String>>) new Comparator<Map.Entry<String, String>>() {
             @Override
             public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
-                return o1.getValue().compareTo(o2.getValue());
+                return o2.getValue().compareTo(o1.getValue());
             }
         });
 

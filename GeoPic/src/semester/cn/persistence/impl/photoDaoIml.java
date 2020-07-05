@@ -163,6 +163,7 @@ public class photoDaoIml  implements PhotoDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 String path = resultSet.getString(1);
+                path = path.replace("photos","thumbs");
                 res.add(path);
             }
             conn.close();
@@ -408,6 +409,7 @@ public class photoDaoIml  implements PhotoDao {
             while (resultSet.next()){
                 String time = resultSet.getTimestamp("takentime").toString();
                 String path = resultSet.getString("photopath");
+                path = path.replace("photos","thumbs");
                 res.put(path,time);
 
             }

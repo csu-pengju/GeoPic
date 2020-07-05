@@ -78,13 +78,13 @@
 .left-box{
     float: left;
     width:70%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 .right-box{
     float:right;
     width:29.5%;
     background-color: rgba(0,0,0,0.8);
-    border:1px solid green;
+    border-left:2px solid green;
     padding-top: 30px;
 }
 .right-box .timeline-text{
@@ -150,6 +150,7 @@
     width: 28px;
     right: 38px;
     border: 1px solid red;
+    padding-top: 2px;
 
 }
 .upload-delete-box img{
@@ -173,7 +174,7 @@
 .thumbs{
     display: inline;
     float: left;
-    border:1px solid blue;
+    border:2px dotted green;
 }
 #thumbs-ul{
     display: inline;

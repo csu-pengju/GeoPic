@@ -17,9 +17,9 @@ TimeLine.prototype.getAllTimeLinePhotos = function(){
         type:"POST",
         dataType:"json",
         success:function (res) {
+            $(".timeline-ul-box").empty();
             var json = typeof res=='string'?JSON.parse(res):res;
             var data = json.data;
-
             var count = 0;
             for(var key in data){
                 var time = key;

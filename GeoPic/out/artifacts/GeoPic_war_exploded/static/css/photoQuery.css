@@ -30,9 +30,7 @@
 .search-box{
     width: 80%;
     height: 280px;
-    border: 1px solid red;
     display: inline-block;
-    /*background-color: lightgrey;*/
     margin: 0 auto;
     text-align: center;
 }
@@ -106,7 +104,6 @@
 .searchRes-box{
     width: 80%;
     height: 100%;
-    border: 1px solid red;
     padding-top: 20px;
 }
 .searchRes-text{
@@ -117,7 +114,7 @@
     letter-spacing: 5px;
 }
 .photoResShow-box,.photos{
-    /*border: 1px solid green;*/
+    border-bottom: 3px dotted green;
     height: 100%;
 }
 .photos{

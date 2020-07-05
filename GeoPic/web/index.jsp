@@ -62,7 +62,7 @@
         <div class="btnSubmitLoginInfo-box">
           <button type="submit" class="btnSubmitLoginInfo"  onclick="register.loginCheck()">开始</button>
         </div>
-        <div class="find-password-box">
+        <div class="find-password-box" onclick="alert('功能建设中，请稍后尝试......')">
           <span class="forget-password">忘记密码？</span>
           <span class="find-password">找回</span>
         </div>
